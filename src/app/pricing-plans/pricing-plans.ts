@@ -38,13 +38,16 @@ export class PricingPlans implements OnInit {
   });
 
   ngOnInit(): void {
+    console.log('PricingPlans component initialized');
     this.loadPlans();
   }
 
   loadPlans(): void {
+    console.log('Loading plans...');
     this.loading.set(true);
     this.plansService.getPlans().subscribe({
       next: (plans) => {
+        console.log('Plans loaded:', plans.length, 'plans');
         this.plans.set(plans);
         this.loading.set(false);
         this.cdr.markForCheck();
