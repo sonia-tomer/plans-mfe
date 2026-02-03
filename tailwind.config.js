@@ -15,6 +15,11 @@ module.exports = {
         warning: '#ffc107',
         danger: '#f44336',
       },
+      fontFamily: {
+        'sf-pro-regular': ['SFProDisplay-Regular', 'sans-serif'],
+        'sf-pro-medium': ['SFProDisplay-Medium', 'sans-serif'],
+        'sf-pro-bold': ['SFProDisplay-Bold', 'sans-serif'],
+      },
     },
   },
   plugins: [],

@@ -4,10 +4,11 @@ import { map } from 'rxjs/operators';
 import { PlansService } from '../services/plans.service';
 import { PricingPlan, ShipmentDetails } from '../models/plan.model';
 import { ModalService } from '../services/modal.service';
-
+import { getImage } from '../cdn-icons-images/getImage/getImage';
+import { CdnIconComponent } from '../cdn-icons-images/getIcon/cdn-icon.component';
 @Component({
   selector: 'app-pricing-plans',
-  imports: [], // No imports needed - using built-in control flow
+  imports: [CdnIconComponent], // Import CdnIconComponent for icons
   templateUrl: './pricing-plans.html',
   styleUrl: './pricing-plans.scss',
   changeDetection: ChangeDetectionStrategy.OnPush // Optimize change detection
@@ -35,6 +36,16 @@ export class PricingPlans implements OnInit {
   shipmentDetailsDisplay = computed(() => {
     const details = this.shipmentDetails();
     return `${details.weight} • ${details.mode} Mode • ${details.payment} • ${details.pickupPincode} → ${details.deliveryPincode}`;
+  });
+
+  // Shipment details as array for display with dots
+  shipmentDetailsArray = computed(() => {
+    const details = this.shipmentDetails();
+    return [
+      `Based on ${details.weight} ${details.payment.toLowerCase()} ${details.mode.toLowerCase()} shipment`,
+      details.pickupPincode,
+      details.deliveryPincode
+    ];
   });
 
   ngOnInit(): void {
@@ -176,5 +187,9 @@ export class PricingPlans implements OnInit {
 
   viewRateCard(plan: PricingPlan): void {
     console.log('View rate card for:', plan.name);
+  }
+
+  getImage(name: string): string {
+    return getImage(name);
   }
 }

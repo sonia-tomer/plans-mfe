@@ -1,136 +1,121 @@
-<div class="max-w-7xl mx-auto px-5 py-10">
-  <div class="mb-10">
-    <h1 class="text-3xl font-semibold text-gray-900 mb-8">Choose a pricing plan that fits your business needs</h1>
-    
-    <div class="bg-gray-50 rounded-lg p-5">
-      <div class="flex justify-between items-center flex-wrap gap-4">
-        <span class="text-sm text-gray-600 font-medium">Sample shipment details to calculate your average shipment cost*</span>
-        <div class="flex items-center gap-4">
-          <span class="text-sm text-gray-800">{{ shipmentDetailsDisplay() }}</span>
-          <button (click)="openEditShipmentModal()" class="text-primary hover:text-primary-dark text-sm font-medium">
-            Edit Details
-          </button>
+<div class="flex flex-col gap-4 max-w-7xl mx-auto mt-8">
+
+  <div class="max-w-7xl mx-auto px-5 py-10 rounded-xl"
+    [style.background-image]="'url(' + getImage('plan-pricing-bg') + ')'">
+    <div class="mb-10">
+      <div class="pricing-plan-title">Choose a pricing plan <span class="text-[#745BE7]">fits your business needs</span>
+      </div>
+
+      <div class="sample-price-info">
+        <div class="sample-price-info-content">
+          <div class="sample-price-info-left">
+            <div class="sample-price-info-title-row">
+              <span class="sample-price-info-title">Sample shipment details to calculate your average shipment
+                cost*</span>
+            </div>
+            <div class="sample-price-info-details-row">
+              <span class="sample-price-info-detail">Based on {{ shipmentDetails().weight }} {{
+                shipmentDetails().payment.toLowerCase() }} {{ shipmentDetails().mode.toLowerCase() }} shipment</span>
+              <span class="sample-price-info-dot"></span>
+              <span class="sample-price-info-detail">{{ shipmentDetails().pickupPincode }}</span>
+              <span class="sample-price-info-dot"></span>
+              <span class="sample-price-info-detail">{{ shipmentDetails().deliveryPincode }}</span>
+            </div>
+          </div>
+          <div class="sample-price-info-right">
+            <button (click)="openEditShipmentModal()" class="sample-price-info-edit-btn">
+              <app-cdn-icon name="edit-pen" [width]="20" [height]="20"></app-cdn-icon>
+              <span>Edit</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  @if (!loading()) {
+    @if (!loading()) {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
       @for (plan of plans(); track plan.id) {
-        <div 
-          class="bg-white border-2 rounded-xl p-6 relative transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col"
-          [class.border-blue-600]="plan.isCurrentPlan"
-          [class.bg-blue-50]="plan.isCurrentPlan"
-          [class.border-green-500]="plan.isRecommended"
-        >
-          <!-- Plan Badge -->
-          @if (plan.isCurrentPlan || plan.isRecommended) {
-            <div class="absolute top-4 right-4">
-              @if (plan.isCurrentPlan) {
-                <span class="px-3 py-1 rounded text-xs font-semibold uppercase bg-blue-600 text-white">
-                  CURRENT PLAN
-                </span>
-              }
-              @if (plan.isRecommended) {
-                <span class="px-3 py-1 rounded text-xs font-semibold uppercase bg-green-500 text-white">
-                  Recommended
-                </span>
-              }
+      <div class="pricing-plan-card">
+        <!-- Plan Card Inner Container -->
+        <div class="pricing-plan-card-inner">
+          <!-- Plan Header Section -->
+          <div class="pricing-plan-header">
+            <div class="pricing-plan-title-section">
+              <h2 class="pricing-plan-name">{{ plan.name }}</h2>
+              <div class="pricing-plan-price-section">
+                <div class="pricing-plan-price">{{ plan.priceDisplay }}</div>
+                <div class="pricing-plan-description">{{ plan.description }}</div>
+              </div>
             </div>
-          }
 
-          <!-- Plan Header -->
-          <div class="mb-4">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-2">{{ plan.name }}</h2>
-            <div class="text-3xl font-bold text-primary">{{ plan.priceDisplay }}</div>
+            <!-- Average Shipment Cost -->
+            <div class="pricing-plan-avg-cost">
+              <div class="pricing-plan-avg-cost-label">Avg shipment cost*</div>
+              <div class="pricing-plan-avg-cost-value">
+                <span class="pricing-plan-avg-cost-amount">₹{{ plan.avgShipmentCost }}</span>
+                <div class="pricing-plan-avg-cost-line"></div>
+              </div>
+            </div>
+
+            <!-- Plan Features -->
+            <div class="pricing-plan-features">
+              <div class="pricing-plan-features-label">Includes:</div>
+              <ul class="pricing-plan-features-list">
+                @for (feature of plan.features; track feature) {
+                <li class="pricing-plan-feature-item">
+                  <app-cdn-icon name="green-tick" [width]="12" [height]="12"></app-cdn-icon>
+                  <span class="pricing-plan-feature-text">{{ feature }}</span>
+                </li>
+                }
+              </ul>
+            </div>
           </div>
 
-          <!-- Plan Description -->
-          <p class="text-sm text-gray-600 mb-4">{{ plan.description }}</p>
-
-          <!-- Average Shipment Cost -->
-          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-md mb-5">
-            <span class="text-sm text-gray-600">Avg shipment cost*</span>
-            <span class="text-lg font-semibold text-gray-900">₹{{ plan.avgShipmentCost }}</span>
+          <!-- Gift Box Section -->
+          <div class="pricing-plan-gift-box">
+            <div class="pricing-plan-gift-icon-wrapper">
+              <app-cdn-icon name="gift" [width]="16" [height]="16"></app-cdn-icon>
+            </div>
+            <div class="pricing-plan-gift-text">
+              Achieve 100 shipments in any month & get plan fee
+            </div>
           </div>
 
-          <!-- Plan Features -->
-          <ul class="flex-grow space-y-2 mb-5">
-            @for (feature of plan.features; track feature) {
-              <li class="flex items-center text-sm text-gray-700">
-                <span class="text-green-500 font-bold mr-2">✓</span>
-                {{ feature }}
-              </li>
-            }
-          </ul>
-
-          <!-- Shipping Milestone Offer -->
-          @if (plan.shippingMilestone) {
-            <div class="bg-yellow-50 rounded-md p-3 mb-4">
-              <p class="text-xs text-gray-600">
-                Achieve {{ plan.shippingMilestone }} shipments in any month & get plan fee refund.
-                <a 
-                  href="#" 
-                  (click)="openZeroFeeOfferModal(plan.shippingMilestone!); $event.preventDefault()" 
-                  class="text-primary font-medium ml-1 hover:underline"
-                >
-                  Know More
-                </a>
-              </p>
-            </div>
-          }
-
-          <!-- Next Renewal (for current plan) -->
-          @if (plan.isCurrentPlan && plan.nextRenewalDate) {
-            <div class="mb-4">
-              <p class="text-xs text-gray-600">Next renewal: {{ plan.nextRenewalDate }}</p>
-            </div>
-          }
-
-          <!-- Action Buttons -->
-          <div class="flex flex-col gap-3">
+          <!-- Action Section -->
+          <div class="pricing-plan-actions">
             @if (!plan.isCurrentPlan) {
-              <button 
-                class="btn btn-primary w-full"
-                [class.bg-green-500]="plan.isRecommended"
-                [class.hover:bg-green-600]="plan.isRecommended"
-                (click)="activatePlan(plan)"
-              >
-                Activate
-              </button>
+            <button class="pricing-plan-activate-btn" (click)="activatePlan(plan)">
+              Activate
+            </button>
             }
             @if (plan.isCurrentPlan) {
-              <button 
-                class="btn bg-green-500 text-white w-full cursor-not-allowed"
-                disabled
-              >
-                <span class="mr-1">✓</span> Active
-              </button>
+            <button class="pricing-plan-activate-btn pricing-plan-active-btn" disabled>
+              Active
+            </button>
             }
-            <a 
-              href="#" 
-              class="text-center text-primary text-sm font-medium hover:underline"
-              (click)="viewRateCard(plan); $event.preventDefault()"
-            >
-              View Detailed Rate Card
+            <a href="#" class="pricing-plan-rate-card-link" (click)="viewRateCard(plan); $event.preventDefault()">
+              <span>View detailed rate card</span>
+              <div class="pricing-plan-rate-card-line"></div>
             </a>
           </div>
         </div>
+      </div>
       }
     </div>
-  } @else {
+    } @else {
     <div class="text-center py-20 text-gray-600">
       <p>Loading plans...</p>
     </div>
-  }
+    }
 
-  <!-- Large Business Section -->
-  <div class="text-center py-10 px-5 bg-gray-50 rounded-xl">
-    <h3 class="text-xl font-semibold text-gray-900 mb-3">Running a large business that ships 10,000+ orders a month?</h3>
-    <p class="text-sm text-gray-600 mb-6">Contact us to get custom pricing and support to fit your scale.</p>
-    <button (click)="openContactSalesModal()" class="btn btn-primary px-8">
-      Contact Sales
-    </button>
+    <!-- Large Business Section -->
+    <div class="text-center py-10 px-5 bg-gray-50 rounded-xl">
+      <h3 class="text-xl font-semibold text-gray-900 mb-3">Running a large business that ships 10,000+ orders a month?
+      </h3>
+      <p class="text-sm text-gray-600 mb-6">Contact us to get custom pricing and support to fit your scale.</p>
+      <button (click)="openContactSalesModal()" class="btn btn-primary px-8">
+        Contact Sales
+      </button>
+    </div>
   </div>
 </div>
