@@ -16,12 +16,12 @@ module.exports = {
         danger: '#f44336',
       },
       fontFamily: {
-        'sf-pro-regular': ['SFProDisplay-Regular', 'sans-serif'],
-        'sf-pro-medium': ['SFProDisplay-Medium', 'sans-serif'],
-        'sf-pro-bold': ['SFProDisplay-Bold', 'sans-serif'],
+        'sf-pro-regular': ['SFProDisplay-Regular'],
+        'sf-pro-medium': ['SFProDisplay-Medium'],
+        'sf-pro-bold': ['SFProDisplay-Bold'],
       },
     },
   },
-  plugins: [],
+  plugins: [ ],
 }
 

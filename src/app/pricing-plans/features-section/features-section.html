@@ -1,0 +1,528 @@
+<div class="w-full max-w-[1164px] mx-auto px-4 mt-6">
+  <div class="w-full bg-white shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-xl py-[73px] px-[45px] relative">
+    <!-- Main Container -->
+    <div class="flex flex-col items-center gap-8 max-w-[1074px] mx-auto">
+      <!-- Header Section -->
+      <div class="flex flex-col items-start gap-2 w-full max-w-[632px]">
+        <h2 class="sf-pro-bold font-bold text-2xl leading-[120%] text-center text-[#0B2110] w-full">
+          Features included in all plans
+        </h2>
+        <p class="sf-pro-regular font-normal text-base leading-6 text-center text-[#6B7280] w-full">
+          All our plans come with comprehensive features to
+        </p>
+      </div>
+
+      <!-- Features Grid -->
+      <div class="flex flex-col lg:flex-row justify-between items-start gap-9 w-full relative">
+        <!-- Left Column -->
+        <div class="flex flex-col gap-10 w-full lg:w-[520px] relative transition-all duration-500 ease-in-out"
+          [class.overflow-hidden]="!featuresExpanded()"
+          [class.max-h-[600px]]="!featuresExpanded()"
+          [class.max-h-none]="featuresExpanded()">
+          <!-- Order & Order Management -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Order & Order Management</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Order Channel Integration</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Order processing</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Pickup mangement</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Partial COD</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Order creation</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Support -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Support</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Get timely help whenever you need — from onboarding to issue resolution.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Training & Setup Assistance</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Managed ops</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">*Dedicated Key Account Manager</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Self serve support</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Call, Email & Chat Support</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipment exception handling -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Shipment exception handling (Pick up / NDR)</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Handle pickups, delays, and NDR cases quickly with guided actions.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">NDR & RTO Management</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">RTO prediction intelligence</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Pick up failure management</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Payment</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Handle pickups, delays, and NDR cases quickly with guided actions.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Billing Module</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">COD Remittance</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other SR Products -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Other SR Products</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">International Shipping</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Engage</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Checkout</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Cargo</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Ads</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">SRF</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Quick</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Fade overlay for left column when collapsed -->
+          @if (!featuresExpanded()) {
+          <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/95 to-transparent pointer-events-none z-10"></div>
+          }
+        </div>
+
+        <!-- Right Column -->
+        <div class="flex flex-col gap-10 w-full lg:w-[520px] relative transition-all duration-500 ease-in-out"
+          [class.overflow-hidden]="!featuresExpanded()"
+          [class.max-h-[600px]]="!featuresExpanded()"
+          [class.max-h-none]="featuresExpanded()">
+          <!-- Tools -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Tools</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Reporting</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Rate Calculator</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">API toolkit</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Multiple User Login & Role Management</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Keyboard shortcuts</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Global search</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">AI assistant</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Catalog management</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Analytics dashboard</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Couriers -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Couriers</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">ODA & RTO Block Pincodes</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Courier Priority</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Advanced Courier Rule</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Label, Invoice & POD templates</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Courier Selection</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Servicablity</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Courier intelligence</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Returns -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Returns</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Handle pickups, delays, and NDR cases quickly with guided actions.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Return Management</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Exchange Management</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Refund Management</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+              <div class="flex flex-row items-start gap-3">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Buyer tracking page experience</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tracking & Notification -->
+          <div class="flex flex-col items-start p-6 gap-4 bg-[#F6F8FF] shadow-[0px_0px_4px_rgba(0,0,10,0.08)] rounded-[10px]">
+            <div class="flex flex-col items-start gap-2 pb-2 border-b border-[#DFE5F4] w-full">
+              <h3 class="sf-pro-medium font-semibold text-lg leading-6 text-[#282B4A]">Tracking & Notification</h3>
+              <p class="sf-pro-regular font-normal text-base leading-5 text-[#373B62]">Handle pickups, delays, and NDR cases quickly with guided actions.</p>
+            </div>
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex flex-row items-start gap-4">
+                <div class="flex justify-center items-center w-5 h-5 bg-[#D1FAE5] rounded-full flex-shrink-0">
+                  <app-cdn-icon name="green-filled" [width]="12" [height]="12"></app-cdn-icon>
+                </div>
+                <div class="flex flex-col gap-1 flex-1">
+                  <span class="sf-pro-medium font-medium text-sm leading-5 text-[#282B4A]">Real Time Shipment Tracking and Notifications</span>
+                  <span class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">Easily manage your order flow end-to-end, from confirming new orders to preparing them for dispatch.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Fade overlay for right column when collapsed -->
+          @if (!featuresExpanded()) {
+          <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/95 to-transparent pointer-events-none z-10"></div>
+          }
+        </div>
+      </div>
+
+      <!-- View All Features / View Less Button -->
+      <div class="flex justify-center items-center mt-8">
+        <button 
+          (click)="toggleFeatures()"
+          class="flex flex-row justify-center items-center px-6 py-3 gap-2 bg-[#735AE5] hover:bg-[#6349d4] rounded-md sf-pro-medium font-semibold text-base leading-6 text-white transition-colors">
+          <span>{{ featuresExpanded() ? 'View Less' : 'View All Features' }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

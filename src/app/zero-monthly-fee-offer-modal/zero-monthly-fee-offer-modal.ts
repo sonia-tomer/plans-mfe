@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ModalService } from '../services/modal.service';
+import { CdnIconComponent } from '../cdn-icons-images/getIcon/cdn-icon.component';
 
 @Component({
   selector: 'app-zero-monthly-fee-offer-modal',
-  imports: [], // No imports needed - using built-in control flow
+  imports: [CdnIconComponent],
   templateUrl: './zero-monthly-fee-offer-modal.html',
   styleUrl: './zero-monthly-fee-offer-modal.scss',
 })

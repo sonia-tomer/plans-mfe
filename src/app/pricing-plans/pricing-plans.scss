@@ -38,6 +38,45 @@
   order: 0;
   align-self: stretch;
   flex-grow: 0;
+  position: relative;
+}
+
+// Current Plan Card Styles
+.pricing-plan-card-current {
+  background: #06064D;
+  border-radius: 12px;
+  width: 257px;
+  height: 696px;
+  padding: 0;
+  position: relative;
+}
+
+.pricing-plan-current-label {
+  position: absolute;
+  width: 102px;
+  height: 12px;
+  left: calc(50% - 102px/2 + 0.5px);
+  top: 8px;
+  font-family: 'SFProDisplay-Medium', 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  z-index: 1;
+}
+
+.pricing-plan-recommended-icon {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
 .pricing-plan-card-inner {
@@ -49,6 +88,29 @@
   gap: 26px;
   width: 207px;
   height: 100%;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  z-index: 0;
+}
+
+.pricing-plan-card-inner-current {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 22px;
+  gap: 26px;
+  isolation: isolate;
+  position: absolute;
+  width: 251px;
+  height: 664px;
+  left: 2px;
+  top: 28px;
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -149,7 +211,7 @@
 
 .pricing-plan-avg-cost {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   padding: 12px;
@@ -346,8 +408,51 @@
 }
 
 .pricing-plan-active-btn {
-  background: #059669;
-  border-color: #059669;
+  background: #EAF8EE;
+  border-color: #EAF8EE;
+  color: #1B8752;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 6.36px;
+  border-radius: 16px;
+  height: 36px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  text-transform: capitalize;
+}
+
+.pricing-plan-renewal-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 12px;
+  width: 207px;
+  height: auto;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.pricing-plan-renewal-date {
+  width: auto;
+  height: 17px;
+  font-family: 'SFProDisplay-Regular', 'SF Pro Display', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #179A54;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
 .pricing-plan-rate-card-link {

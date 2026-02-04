@@ -1,40 +1,66 @@
-<div>
-  <h2 class="text-xl font-semibold text-gray-900 mb-6">Zero Monthly Fee Offer</h2>
-  
-  <div>
-    <h3 class="text-lg font-semibold text-gray-900 mb-4">Offer Details</h3>
-    <p class="text-base text-gray-700 leading-relaxed mb-6 p-4 bg-gray-50 rounded-lg">
-      Achieve {{ milestone }} shipments in any calendar month and get your monthly plan fee refunded to your Shiprocket wallet.
-    </p>
-
-    <div>
-      <h4 class="text-base font-semibold text-gray-900 mb-4">Conditions:</h4>
-      <ul class="space-y-3">
-        <li class="flex items-start">
-          <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold mr-3 flex-shrink-0">✓</span>
-          <span class="text-sm text-gray-700">Refund will be credited to Shiprocket wallet after the end of the month</span>
-        </li>
-        <li class="flex items-start">
-          <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold mr-3 flex-shrink-0">✓</span>
-          <span class="text-sm text-gray-700">Offer works on calendar month basis</span>
-        </li>
-        <li class="flex items-start">
-          <span class="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center font-bold mr-3 flex-shrink-0">✓</span>
-          <span class="text-sm text-gray-700">Valid only for picked up shipments</span>
-        </li>
-        <li class="flex items-start">
-          <span class="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold mr-3 flex-shrink-0">⚠</span>
-          <span class="text-sm text-gray-700">No other offers can be clubbed with this offer</span>
-        </li>
-        <li class="flex items-start">
-          <span class="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold mr-3 flex-shrink-0">⚠</span>
-          <span class="text-sm text-gray-700">Cashback has 30 days expiry from credit date</span>
-        </li>
-      </ul>
+<!-- Main Container -->
+<div class="modal-container">
+  <!-- Dialog Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="icon-container">
+          <app-cdn-icon name="gift" [width]="20" [height]="20"></app-cdn-icon>
+        </div>
+        <h2 class="modal-title sf-pro-bold">Zero Monthly Fee Offer</h2>
+      </div>
+      <button class="close-button" (click)="onClose()">
+        <app-cdn-icon name="close" [width]="20" [height]="20"></app-cdn-icon>
+      </button>
     </div>
   </div>
 
-  <div class="flex justify-end mt-6">
-    <button (click)="onClose()" class="btn btn-primary">Close</button>
+  <!-- Content Frame -->
+  <div class="content-frame">
+    <!-- Offer Details Container -->
+    <div class="offer-details-container">
+      <div class="offer-details-label sf-pro-medium">Offer Details</div>
+      <p class="offer-details-text sf-pro-regular">
+        Achieve {{ milestone }} shipments in any calendar month and get your monthly plan fee refunded to your Shiprocket wallet.
+      </p>
+    </div>
+
+    <!-- Conditions Container -->
+    <div class="conditions-container">
+      <!-- Condition Item 1 -->
+      <div class="condition-item">
+        <app-cdn-icon name="green-tick" [width]="20" [height]="20"></app-cdn-icon>
+        <span class="condition-text sf-pro-regular">Refund will be credited to Shiprocket wallet after the end of the month</span>
+      </div>
+
+      <!-- Condition Item 2 -->
+      <div class="condition-item">
+        <app-cdn-icon name="green-tick" [width]="20" [height]="20"></app-cdn-icon>
+        <span class="condition-text sf-pro-regular">Offer works on calendar month basis</span>
+      </div>
+
+      <!-- Condition Item 3 -->
+      <div class="condition-item">
+        <app-cdn-icon name="green-tick" [width]="20" [height]="20"></app-cdn-icon>
+        <span class="condition-text sf-pro-regular">Valid only for picked up shipments</span>
+      </div>
+
+      <!-- Condition Item 4 -->
+      <div class="condition-item">
+        <app-cdn-icon name="warning" [width]="20" [height]="20"></app-cdn-icon>
+        <span class="condition-text sf-pro-regular">No other offers can be clubbed with this offer</span>
+      </div>
+
+      <!-- Condition Item 5 -->
+      <div class="condition-item">
+        <app-cdn-icon name="warning" [width]="20" [height]="20"></app-cdn-icon>
+        <span class="condition-text sf-pro-regular">Cashback has 30 days expiry from credit date</span>
+      </div>
+    </div>
   </div>
+
+  <!-- Hidden Button (as per CSS spec) -->
+  <button class="got-it-button" style="visibility: hidden;">
+    <span class="sf-pro-medium">Got it</span>
+  </button>
 </div>

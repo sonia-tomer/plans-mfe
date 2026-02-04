@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactSalesService } from '../services/contact-sales.service';
 import { ModalService } from '../services/modal.service';
+import { CdnIconComponent } from '../cdn-icons-images/getIcon/cdn-icon.component';
 
 @Component({
   selector: 'app-contact-sales-form-modal',
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CdnIconComponent
   ],
   templateUrl: './contact-sales-form-modal.html',
   styleUrl: './contact-sales-form-modal.scss',
@@ -31,6 +33,14 @@ export class ContactSalesFormModal {
     'DTDC',
     'Xpressbees',
     'Other'
+  ];
+
+  monthlyShipmentVolumeOptions = [
+    '0-100',
+    '101-500',
+    '501-1000',
+    '1001-5000',
+    '5000+'
   ];
 
   constructor() {

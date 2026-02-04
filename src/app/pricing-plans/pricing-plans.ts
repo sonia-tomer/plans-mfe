@@ -6,9 +6,10 @@ import { PricingPlan, ShipmentDetails } from '../models/plan.model';
 import { ModalService } from '../services/modal.service';
 import { getImage } from '../cdn-icons-images/getImage/getImage';
 import { CdnIconComponent } from '../cdn-icons-images/getIcon/cdn-icon.component';
+import { FeaturesSection } from './features-section/features-section';
 @Component({
   selector: 'app-pricing-plans',
-  imports: [CdnIconComponent], // Import CdnIconComponent for icons
+  imports: [CdnIconComponent, FeaturesSection], // Import CdnIconComponent for icons and FeaturesSection
   templateUrl: './pricing-plans.html',
   styleUrl: './pricing-plans.scss',
   changeDetection: ChangeDetectionStrategy.OnPush // Optimize change detection
@@ -177,7 +178,7 @@ export class PricingPlans implements OnInit {
 
   async openContactSalesModal(): Promise<void> {
     const { ContactSalesFormModal } = await import('../contact-sales-form-modal/contact-sales-form-modal');
-    this.modalService.open(ContactSalesFormModal, undefined, '600px');
+    this.modalService.open(ContactSalesFormModal, undefined, '754px');
   }
 
   async openZeroFeeOfferModal(milestone: number): Promise<void> {
