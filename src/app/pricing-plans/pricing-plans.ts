@@ -126,20 +126,9 @@ export class PricingPlans implements OnInit {
   }
 
   recalculateCosts(): void {
-    // Recalculate average shipment costs for all plans
-    const currentDetails = this.shipmentDetails();
-    this.plans().forEach(plan => {
-      this.plansService.calculateShipmentCost(plan.id, currentDetails).subscribe({
-        next: (cost: number) => {
-          // Update plan in signal
-          const updatedPlans = this.plans().map(p => 
-            p.id === plan.id ? { ...p, avgShipmentCost: cost } : p
-          );
-          this.plans.set(updatedPlans);
-          this.cdr.markForCheck();
-        }
-      });
-    });
+    // User has updated shipment details in the modal; call rate serviceability API
+    // again with the new details and update avgShipmentCost for all plans.
+    this.fetchRateServiceability();
   }
 
   activatePlan(plan: PricingPlan): void {

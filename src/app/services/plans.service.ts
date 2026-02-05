@@ -39,19 +39,23 @@ export class PlansService {
    * Used to derive avgShipmentCost in UI (response mapping to be decided).
    */
   getRateServiceability(details: ShipmentDetails): Observable<any> {
-    // For now, match the provided curl exactly (static params).
-    // Later we can switch back to using `details` dynamically.
-    const params = new HttpParams()
-      .set('pickup_postcode', '110042')
-      .set('delivery_postcode', '110030')
-      .set('weight', '0.5')
-      .set('cod', '1')
-      .set('declared_value', '')
-      .set('breadth', '')
-      .set('length', '')
-      .set('height', '');
+    // Use user-provided shipment details to build dynamic params
+    const weightKg = this.mapWeightToKg(details.weight);
+    const isCod = details.payment.toLowerCase() === 'cod' ? '1' : '0';
 
-    // Open API: no auth token
+    const params = new HttpParams()
+      .set('pickup_postcode', details.pickupPincode)
+      .set('delivery_postcode', details.deliveryPincode)
+      .set('weight', String(weightKg))
+      .set('cod', isCod)
+      .set('declared_value', String(details.orderValue ?? ''))
+      // Use sensible defaults for dimensions if not provided; API expects them but
+      // they don't affect the relative comparison much for this sample calculator.
+      .set('breadth', '10')
+      .set('length', '10')
+      .set('height', '10');
+
+    // Open API: no auth token required
     const headers = {
       accept: '*/*',
     };
