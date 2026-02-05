@@ -1,1 +1,172 @@
-<p>contact-sales-form-modal works!</p>
+<div class="contact-sales-modal">
+  <!-- Dialog Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <h2 class="dialog-title sf-pro-bold">Contact Sales</h2>
+      <button type="button" (click)="onCancel()" class="close-button">
+        <app-cdn-icon name="close" [width]="20" [height]="20"></app-cdn-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Form Content -->
+  <div class="form-content">
+    <form [formGroup]="contactForm" class="contact-form">
+      <!-- Row 1: Full Name and Email -->
+      <div class="form-row">
+        <div class="form-field-container">
+          <label class="field-label sf-pro-medium">Full Name</label>
+          <input 
+            type="text" 
+            formControlName="fullName" 
+            placeholder="Enter your full name"
+            class="form-input sf-pro-regular"
+            [class.input-error]="isFieldInvalid('fullName')"
+          >
+          @if (isFieldInvalid('fullName')) {
+            <p class="error-message sf-pro-regular">
+              {{ getErrorMessage('fullName') }}
+            </p>
+          }
+        </div>
+
+        <div class="form-field-container">
+          <label class="field-label sf-pro-medium">Email Address</label>
+          <input 
+            type="email" 
+            formControlName="email" 
+            placeholder="Enter your email ID"
+            class="form-input sf-pro-regular"
+            [class.input-error]="isFieldInvalid('email')"
+          >
+          @if (isFieldInvalid('email')) {
+            <p class="error-message sf-pro-regular">
+              {{ getErrorMessage('email') }}
+            </p>
+          }
+        </div>
+      </div>
+
+      <!-- Row 2: Phone Number and Company Name -->
+      <div class="form-row">
+        <div class="form-field-container">
+          <label class="field-label sf-pro-medium">Phone Number</label>
+          <input 
+            type="text" 
+            formControlName="phoneNumber" 
+            placeholder="Enter your phone number"
+            maxlength="10"
+            class="form-input sf-pro-regular"
+            [class.input-error]="isFieldInvalid('phoneNumber')"
+          >
+          @if (isFieldInvalid('phoneNumber')) {
+            <p class="error-message sf-pro-regular">
+              {{ getErrorMessage('phoneNumber') }}
+            </p>
+          }
+        </div>
+
+        <div class="form-field-container">
+          <label class="field-label sf-pro-medium">Company Name</label>
+          <input 
+            type="text" 
+            formControlName="companyName" 
+            placeholder="Enter your company name"
+            class="form-input sf-pro-regular"
+            [class.input-error]="isFieldInvalid('companyName')"
+          >
+          @if (isFieldInvalid('companyName')) {
+            <p class="error-message sf-pro-regular">
+              {{ getErrorMessage('companyName') }}
+            </p>
+          }
+        </div>
+      </div>
+
+      <!-- Row 3: Website URL (Full Width) -->
+      <div class="form-field-container full-width">
+        <label class="field-label sf-pro-medium">Website URL (Optional)</label>
+        <input 
+          type="url" 
+          formControlName="websiteUrl" 
+          placeholder="https://yourwebsite.com"
+          class="form-input sf-pro-regular"
+        >
+      </div>
+
+      <!-- Row 4: Monthly Shipment Volume and Current Shipping Provider -->
+      <div class="form-row">
+        <div class="form-field-container">
+          <label class="field-label sf-pro-medium">Monthly Shipment Volume</label>
+          <select 
+            formControlName="monthlyShipmentVolume"
+            class="form-select sf-pro-regular"
+            [class.input-error]="isFieldInvalid('monthlyShipmentVolume')"
+          >
+            <option value="">Select volume</option>
+            @for (volume of monthlyShipmentVolumeOptions; track volume) {
+              <option [value]="volume">
+                {{ volume }}
+              </option>
+            }
+          </select>
+          @if (isFieldInvalid('monthlyShipmentVolume')) {
+            <p class="error-message sf-pro-regular">
+              {{ getErrorMessage('monthlyShipmentVolume') }}
+            </p>
+          }
+        </div>
+
+        <div class="form-field-container">
+          <label class="field-label sf-pro-medium">Current Shipping Provider (Optional)</label>
+          <select 
+            formControlName="currentShippingProvider"
+            class="form-select sf-pro-regular"
+          >
+            <option value="">e.g., Delhivery, Blue Dart</option>
+            @for (provider of shippingProviders; track provider) {
+              <option [value]="provider">
+                {{ provider }}
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- Row 5: Specific Requirements (Full Width) -->
+      <div class="form-field-container full-width">
+        <label class="field-label sf-pro-medium">Specific Requirements (Optional)</label>
+        <div class="textarea-container">
+          <textarea 
+            formControlName="specificRequirements" 
+            placeholder="Tell us about your specific shipping needs, integration requirements, or any other details..."
+            rows="3"
+            [maxlength]="maxCharacters"
+            class="form-textarea sf-pro-regular"
+          ></textarea>
+          <p class="character-count sf-pro-regular">{{ characterCount }}/{{ maxCharacters }} characters</p>
+        </div>
+      </div>
+    </form>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button 
+        type="button"
+        (click)="onCancel()" 
+        [disabled]="loading"
+        class="btn-cancel sf-pro-medium"
+      >
+        Cancel
+      </button>
+      <button 
+        type="button"
+        (click)="onSubmit()" 
+        [disabled]="loading || contactForm.invalid"
+        class="btn-submit sf-pro-medium"
+      >
+        {{ loading ? 'Submitting...' : 'Submit Request' }}
+      </button>
+    </div>
+  </div>
+</div>

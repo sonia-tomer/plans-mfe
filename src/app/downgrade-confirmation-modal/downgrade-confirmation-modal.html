@@ -8,10 +8,15 @@
   <div class="bg-yellow-50 rounded-lg p-5 mb-6 text-left">
     <h3 class="text-base font-semibold text-gray-900 mb-4">Benefits you will lose out on</h3>
     <ul class="space-y-2">
-      @for (benefit of benefits; track benefit) {
+      @for (benefit of benefits; track benefit.title) {
         <li class="flex items-start text-sm text-gray-700">
           <span class="w-6 h-6 rounded-full bg-yellow-400 text-white flex items-center justify-center font-bold mr-3 flex-shrink-0">−</span>
-          <span>{{ benefit }}</span>
+          <span>
+            <strong class="text-gray-900">{{ benefit.title }}</strong>
+            @if (benefit.description) {
+              <span class="text-gray-700"> — {{ benefit.description }}</span>
+            }
+          </span>
         </li>
       }
     </ul>

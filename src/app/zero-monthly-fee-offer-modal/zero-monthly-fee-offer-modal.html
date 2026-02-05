@@ -1,1 +1,53 @@
-<p>zero-monthly-fee-offer-modal works!</p>
+<!-- Main Container -->
+<div class="modal-container">
+  <!-- Dialog Header -->
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="icon-container">
+          <app-cdn-icon name="gift" [width]="20" [height]="20"></app-cdn-icon>
+        </div>
+        <h2 class="modal-title sf-pro-bold" [innerHTML]="milestoneMatrix ? safeHtml(milestoneMatrix.headingHtml) : 'Zero Monthly Fee Offer'"></h2>
+      </div>
+      <button class="close-button" (click)="onClose()">
+        <app-cdn-icon name="close" [width]="20" [height]="20"></app-cdn-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Frame -->
+  <div class="content-frame">
+    <!-- Offer Details Container -->
+    <div class="offer-details-container">
+      <div class="offer-details-label sf-pro-medium">
+        {{ milestoneMatrix?.offerDetailsLabel || 'Offer Details' }}
+      </div>
+      <p class="offer-details-text sf-pro-regular" [innerHTML]="safeHtml(milestoneMatrix?.offerDetailsHtml || '')"></p>
+    </div>
+
+    <!-- Conditions Container -->
+    <div class="conditions-container">
+      @for (item of (milestoneMatrix?.tnc || []); track item.text) {
+        <div class="condition-item">
+          @if (getTncIconUrl(item.icon)) {
+            <img
+              [src]="getTncIconUrl(item.icon)!"
+              width="20"
+              height="20"
+              alt=""
+              loading="lazy"
+            />
+          } @else {
+            <app-cdn-icon [name]="item.icon" [width]="20" [height]="20"></app-cdn-icon>
+          }
+          <span class="condition-text sf-pro-regular">{{ item.text }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Hidden Button (as per CSS spec) -->
+  <button class="got-it-button" style="visibility: hidden;">
+    <span class="sf-pro-medium">Got it</span>
+  </button>
+</div>

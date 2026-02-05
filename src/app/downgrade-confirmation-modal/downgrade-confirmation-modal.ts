@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { PricingPlan } from '../models/plan.model';
+import { PricingPlan, PlanBenefits } from '../models/plan.model';
 import { ModalService } from '../services/modal.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class DowngradeConfirmationModal implements OnInit {
 
   targetPlan?: PricingPlan;
   currentPlan?: PricingPlan | null;
-  benefits: string[] = [];
+  benefits: PlanBenefits[] = [];
   effectiveDate?: string;
   result?: boolean;
 

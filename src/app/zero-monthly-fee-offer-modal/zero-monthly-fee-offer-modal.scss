@@ -1,1 +1,262 @@
+/* Main Container */
+.modal-container {
+  box-sizing: border-box;
+  position: absolute;
+  width: 612px;
+  height: 445px;
+  left: calc(50% - 512px / 2);
+  top: calc(50% - 407px / 2 - 90px);
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
 
+/* Dialog Header */
+.dialog-header {
+  box-sizing: border-box;
+  position: absolute;
+  // width: 612px;
+  height: 64px;
+  left: 0px;
+  top: 1px;
+  border-bottom: 1px solid #E5E7EB;
+  border-radius: 0px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  // gap: 267px;
+  position: absolute;
+  width: 464px;
+  height: 40px;
+  left: 24px;
+  top: calc(50% - 40px / 2);
+}
+
+.header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 231px;
+  height: 40px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  width: 40px;
+  height: 40px;
+  background: #EAF3FF;
+  border-radius: 10px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.modal-title {
+  // width: 183px;
+  height: 18px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  color: #06064D;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0;
+  // gap: 10px;
+}
+
+.close-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 20px;
+  height: 20px;
+  border-radius: 0px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+/* Content Frame */
+.content-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  position: absolute;
+  width: 462px;
+  height: 294px;
+  left: 25px;
+  top: 81px;
+}
+
+/* Offer Details Container */
+.offer-details-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 8px;
+  width: 462px;
+  height: 106px;
+  background: linear-gradient(270deg, #FFFFFF 3.62%, #EAF6FF 100%);
+  border: 1px solid #DEEBFF;
+  border-radius: 10px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.offer-details-label {
+  width: 74px;
+  height: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.150391px;
+  color: #7990A4;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.offer-details-text {
+  width: 430px;
+  height: 46px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 23px;
+  color: #373B62;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+  margin: 0;
+}
+
+/* Conditions Container */
+.conditions-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 16px;
+  width: 462px;
+  height: 164px;
+  border-radius: 0px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.condition-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+  flex: none;
+  flex-grow: 0;
+}
+
+.condition-item:nth-child(1) {
+  width: 440px;
+  height: 20px;
+  order: 0;
+}
+
+.condition-item:nth-child(2) {
+  width: 240px;
+  height: 20px;
+  order: 1;
+}
+
+.condition-item:nth-child(3) {
+  width: 226px;
+  height: 20px;
+  order: 2;
+}
+
+.condition-item:nth-child(4) {
+  width: 287px;
+  height: 20px;
+  order: 3;
+}
+
+.condition-item:nth-child(5) {
+  width: 293px;
+  height: 20px;
+  order: 4;
+}
+
+.condition-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.150391px;
+  color: #0E2D57;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+/* Hidden Button */
+.got-it-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 32px;
+  gap: 8px;
+  position: absolute;
+  visibility: hidden;
+  width: 150px;
+  height: 36px;
+  left: 337px;
+  top: 407px;
+  background: #6964E2;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.got-it-button span {
+  width: 32px;
+  height: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.150391px;
+  color: #FFFFFF;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}

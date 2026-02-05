@@ -1,103 +1,167 @@
-<div>
-  <h2 class="text-xl font-semibold text-gray-900 mb-6">Edit Sample Shipment</h2>
-  
-  <form [formGroup]="shipmentForm" class="space-y-6">
-    <!-- Weight Selection -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700 mb-3">Weight</label>
-      <div class="flex gap-4">
-        @for (weight of weightOptions; track weight) {
-          <label class="flex items-center cursor-pointer">
-            <input 
-              type="radio" 
-              [value]="weight" 
-              formControlName="weight"
-              class="w-4 h-4 text-primary focus:ring-primary border-gray-300"
-            >
-            <span class="ml-2 text-sm text-gray-700">{{ weight }}</span>
-          </label>
-        }
-      </div>
-    </div>
-
-    <!-- Mode Selection -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700 mb-3">Mode</label>
-      <div class="flex gap-4">
-        @for (mode of modeOptions; track mode) {
-          <label class="flex items-center cursor-pointer">
-            <input 
-              type="radio" 
-              [value]="mode" 
-              formControlName="mode"
-              class="w-4 h-4 text-primary focus:ring-primary border-gray-300"
-            >
-            <span class="ml-2 text-sm text-gray-700">{{ mode }}</span>
-          </label>
-        }
-      </div>
-    </div>
-
-    <!-- Payment Selection -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700 mb-3">Payment</label>
-      <div class="flex gap-4">
-        @for (payment of paymentOptions; track payment) {
-          <label class="flex items-center cursor-pointer">
-            <input 
-              type="radio" 
-              [value]="payment" 
-              formControlName="payment"
-              class="w-4 h-4 text-primary focus:ring-primary border-gray-300"
-            >
-            <span class="ml-2 text-sm text-gray-700">{{ payment }}</span>
-          </label>
-        }
-      </div>
-    </div>
-
-    <!-- Pickup Pincode -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">Pickup Pincode</label>
-      <input 
-        type="text" 
-        formControlName="pickupPincode" 
-        placeholder="Enter pickup pincode"
-        maxlength="6"
-        class="input-field"
-        [class.input-error]="isFieldInvalid('pickupPincode')"
+<div class="box-border absolute w-[510px] h-[523px] left-[calc(50%-255px)] top-[calc(50%-295px)] bg-white border border-black/10 shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] rounded-[10px]">
+  <!-- Dialog Header -->
+  <div class="box-border absolute w-[510px] h-[59px] left-0 top-0 border-b border-[#E5E7EB]">
+    <div class="flex flex-row justify-between items-center p-0  absolute w-[462px] h-5 left-6 top-6">
+      <h2 class=" h-[18px] sf-pro-bold text-lg leading-[18px] text-[#06064D] flex-none order-0 flex-grow-0">
+        Edit Sample Shipment
+      </h2>
+      <button 
+        type="button" 
+        (click)="onCancel()"
+        class="flex flex-col items-start p-0 w-5 h-5 rounded-none flex-none order-1 flex-grow-0 cursor-pointer bg-transparent border-none"
       >
-      @if (isFieldInvalid('pickupPincode')) {
-        <p class="mt-1 text-sm text-red-600">
-          {{ getErrorMessage('pickupPincode') }}
-        </p>
-      }
+        <app-cdn-icon name="close" [width]="15" [height]="15"></app-cdn-icon>
+      </button>
     </div>
+  </div>
 
-    <!-- Delivery Pincode -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Pincode</label>
-      <input 
-        type="text" 
-        formControlName="deliveryPincode" 
-        placeholder="Enter delivery pincode"
-        maxlength="6"
-        class="input-field"
-        [class.input-error]="isFieldInvalid('deliveryPincode')"
-      >
-      @if (isFieldInvalid('deliveryPincode')) {
-        <p class="mt-1 text-sm text-red-600">
-          {{ getErrorMessage('deliveryPincode') }}
-        </p>
-      }
+  <!-- Form Content -->
+  <form [formGroup]="shipmentForm" class="flex flex-col items-end p-0 gap-8 absolute w-[462px] left-6 top-[75px]">
+    <div class="flex flex-col items-start p-0 gap-6 w-[462px] flex-none order-0 self-stretch flex-grow-0">
+      <!-- Weight Selection -->
+      <div class="flex flex-col items-start p-0 gap-3 w-[462px] h-[68px] flex-none order-0 self-stretch flex-grow-0">
+        <label class="w-[43px] h-5 sf-pro-medium text-sm leading-5 text-[#0E2D57] flex-none order-0 flex-grow-0">
+          Weight
+        </label>
+        <div class="flex flex-row items-start p-0 gap-3 w-[462px] h-[38px] flex-none order-1 self-stretch flex-grow-0">
+          @for (weight of weightOptions; track weight) {
+            <label 
+              class="box-border flex items-center justify-center cursor-pointer h-[38px] border rounded-[10px] px-6"
+              [class.bg-[rgba(116,91,231,0.1)]]="isSelected('weight', weight)"
+              [class.border-[#745BE7]]="isSelected('weight', weight)"
+              [class.bg-white]="!isSelected('weight', weight)"
+              [class.border-[#D3D3D3]]="!isSelected('weight', weight)"
+              [class.text-[#745BE7]]="isSelected('weight', weight)"
+              [class.text-[#374151]]="!isSelected('weight', weight)"
+              [class.sf-pro-medium]="isSelected('weight', weight)"
+              [class.sf-pro-regular]="!isSelected('weight', weight)"
+            >
+              <input 
+                type="radio" 
+                [value]="weight" 
+                formControlName="weight"
+                class="hidden"
+              >
+              <span class="text-sm leading-5 tracking-[-0.150391px]">{{ weight }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Mode Selection -->
+      <div class="flex flex-col items-start p-0 gap-3 w-[462px] h-[70px] flex-none order-1 self-stretch flex-grow-0">
+        <label class="w-[35px] h-5 sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#0E2D57] flex-none order-0 flex-grow-0">
+          Mode
+        </label>
+        <div class="flex flex-row items-start p-0 gap-3 w-[462px] h-[38px] flex-none order-1 self-stretch flex-grow-0">
+          @for (mode of modeOptions; track mode) {
+            <label 
+              class="box-border flex items-center justify-center cursor-pointer h-[38px] border rounded-[10px] px-6"
+              [class.bg-[rgba(116,91,231,0.1)]]="isSelected('mode', mode)"
+              [class.border-[#745BE7]]="isSelected('mode', mode)"
+              [class.bg-white]="!isSelected('mode', mode)"
+              [class.border-[#D3D3D3]]="!isSelected('mode', mode)"
+              [class.text-[#745BE7]]="isSelected('mode', mode)"
+              [class.text-[#374151]]="!isSelected('mode', mode)"
+              [class.sf-pro-medium]="isSelected('mode', mode)"
+              [class.sf-pro-regular]="!isSelected('mode', mode)"
+            >
+              <input 
+                type="radio" 
+                [value]="mode" 
+                formControlName="mode"
+                class="hidden"
+              >
+              <span class="text-sm leading-5 tracking-[-0.150391px]">{{ mode }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Payment Selection -->
+      <div class="flex flex-col items-start p-0 gap-3 w-[462px] h-[70px] flex-none order-2 self-stretch flex-grow-0">
+        <label class="w-[53px] h-5 sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#0E2D57] flex-none order-0 flex-grow-0">
+          Payment
+        </label>
+        <div class="flex flex-row items-start p-0 gap-3 w-[462px] h-[38px] flex-none order-1 self-stretch flex-grow-0">
+          @for (payment of paymentOptions; track payment) {
+            <label 
+              class="box-border flex items-center justify-center cursor-pointer h-[38px] border rounded-[10px] px-6"
+              [class.bg-[rgba(116,91,231,0.1)]]="isSelected('payment', payment)"
+              [class.border-[#745BE7]]="isSelected('payment', payment)"
+              [class.bg-white]="!isSelected('payment', payment)"
+              [class.border-[#D3D3D3]]="!isSelected('payment', payment)"
+              [class.text-[#745BE7]]="isSelected('payment', payment)"
+              [class.text-[#374151]]="!isSelected('payment', payment)"
+              [class.sf-pro-medium]="isSelected('payment', payment)"
+              [class.sf-pro-regular]="!isSelected('payment', payment)"
+            >
+              <input 
+                type="radio" 
+                [value]="payment" 
+                formControlName="payment"
+                class="hidden"
+              >
+              <span class="text-sm leading-5 tracking-[-0.150391px]">{{ payment }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Pickup and Delivery Pincode -->
+      <div class="flex flex-row justify-between items-start p-0 gap-6 w-[462px] flex-none order-3 self-stretch flex-grow-0">
+        <!-- Pickup Pincode -->
+        <div class="flex flex-col items-start p-0 gap-3 mx-auto w-[220px] flex-none order-0 flex-grow-0">
+          <label class="w-[92px] h-5 sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#0E2D57] flex-none order-0 flex-grow-0">
+            Pickup Pincode
+          </label>
+          <div class="w-full">
+            <input 
+              type="text" 
+              formControlName="pickupPincode" 
+              placeholder="110001"
+              maxlength="6"
+              class="box-border flex flex-row items-center px-3 py-1 w-full h-9 bg-white border border-[#D3D3D3] rounded-lg sf-pro-regular text-sm leading-5 tracking-[-0.150391px] text-[#374151] focus:outline-none focus:ring-2 focus:ring-[#745BE7] focus:border-transparent"
+              [class.border-red-500]="isFieldInvalid('pickupPincode')"
+            >
+            @if (isFieldInvalid('pickupPincode')) {
+              <p class="text-xs text-red-600 sf-pro-regular mt-1">
+                {{ getErrorMessage('pickupPincode') }}
+              </p>
+            }
+          </div>
+        </div>
+
+        <!-- Delivery Pincode -->
+        <div class="flex flex-col items-start p-0 gap-3 mx-auto w-[220px] flex-none order-1 flex-grow-0">
+          <label class="w-[99px] h-5 sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#0E2D57] flex-none order-0 flex-grow-0">
+            Delivery Pincode
+          </label>
+          <div class="w-full">
+            <input 
+              type="text" 
+              formControlName="deliveryPincode" 
+              placeholder="400059"
+              maxlength="6"
+              class="box-border flex flex-row items-center px-3 py-1 w-full h-9 bg-white border border-[#D3D3D3] rounded-lg sf-pro-regular text-sm leading-5 tracking-[-0.150391px] text-[#374151] focus:outline-none focus:ring-2 focus:ring-[#745BE7] focus:border-transparent"
+              [class.border-red-500]="isFieldInvalid('deliveryPincode')"
+            >
+            @if (isFieldInvalid('deliveryPincode')) {
+              <p class="text-xs text-red-600 sf-pro-regular mt-1">
+                {{ getErrorMessage('deliveryPincode') }}
+              </p>
+            }
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex justify-end gap-3 pt-4">
-      <button type="button" (click)="onCancel()" class="btn btn-secondary">
+    <div class="flex flex-row justify-center items-center p-0 gap-4 w-[462px] h-9 flex-none order-1 self-stretch flex-grow-0">
+      <button type="button" (click)="onCancel()" class="box-border flex flex-row justify-center items-center px-8 py-2 gap-2 w-[150px] h-9 bg-white border border-[#745BE7] rounded-md sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#745BE7] flex-none order-0 flex-grow-0">
         Cancel
       </button>
-      <button type="button" (click)="onCalculate()" class="btn btn-primary">
+      <button type="button" (click)="onCalculate()" class="flex flex-row justify-center items-center px-8 py-2 gap-2 w-[214px] h-9 bg-[#745BE7] rounded-md sf-pro-medium text-sm leading-5 text-white flex-none order-1 flex-grow-0">
         Calculate Shipment Cost
       </button>
     </div>

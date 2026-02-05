@@ -1,27 +1,29 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PlansService } from '../services/plans.service';
-import { PricingPlan, ShipmentDetails } from '../models/plan.model';
+import { PricingPlan, ShipmentDetails, PlanBenefits, PlanActivationResponse } from '../models/plan.model';
 import { EditSampleShipmentModal } from '../edit-sample-shipment-modal/edit-sample-shipment-modal';
 import { PlanActivationSuccessModal } from '../plan-activation-success-modal/plan-activation-success-modal';
 import { DowngradeConfirmationModal } from '../downgrade-confirmation-modal/downgrade-confirmation-modal';
 import { ContactSalesFormModal } from '../contact-sales-form-modal/contact-sales-form-modal';
 import { ZeroMonthlyFeeOfferModal } from '../zero-monthly-fee-offer-modal/zero-monthly-fee-offer-modal';
 import { ModalService } from '../services/modal.service';
-
+import { getImage } from '../cdn-icons-images/getImage/getImage';
+import { CdnIconComponent } from '../cdn-icons-images/getIcon/cdn-icon.component';
+import { FeaturesSection } from './features-section/features-section';
+import { IntegrationSection } from './integration-section/integration-section';
 @Component({
   selector: 'app-pricing-plans',
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CdnIconComponent, FeaturesSection, IntegrationSection], // Import CdnIconComponent for icons, FeaturesSection, and IntegrationSection
   templateUrl: './pricing-plans.html',
   styleUrl: './pricing-plans.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PricingPlans implements OnInit {
   private plansService = inject(PlansService);
   private modalService = inject(ModalService);
+  private cdr = inject(ChangeDetectorRef);
+  private sanitizer = inject(DomSanitizer);
 
   // Using signals for reactive state - Angular 21 feature
   plans = signal<PricingPlan[]>([]);
@@ -43,20 +45,33 @@ export class PricingPlans implements OnInit {
     return `${details.weight} • ${details.mode} Mode • ${details.payment} • ${details.pickupPincode} → ${details.deliveryPincode}`;
   });
 
+  // Shipment details as array for display with dots
+  shipmentDetailsArray = computed(() => {
+    const details = this.shipmentDetails();
+    return [
+      `Based on ${details.weight} ${details.payment.toLowerCase()} ${details.mode.toLowerCase()} shipment`,
+      details.pickupPincode,
+      details.deliveryPincode
+    ];
+  });
+
   ngOnInit(): void {
+    console.log('✅ PricingPlans component initialized');
     this.loadPlans();
   }
 
   loadPlans(): void {
     this.loading.set(true);
     this.plansService.getPlans().subscribe({
-      next: (plans) => {
+      next: (plans: PricingPlan[]) => {
         this.plans.set(plans);
         this.loading.set(false);
+        this.cdr.markForCheck();
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error loading plans:', error);
         this.loading.set(false);
+        this.cdr.markForCheck();
       }
     });
   }
@@ -64,7 +79,7 @@ export class PricingPlans implements OnInit {
   openEditShipmentModal(): void {
     this.modalService.open(EditSampleShipmentModal, {
       shipmentDetails: { ...this.shipmentDetails() }
-    }, '500px').subscribe((result) => {
+    }, '500px').subscribe((result: ShipmentDetails | undefined) => {
       if (result) {
         // Temporary state - not stored, just for calculation
         this.shipmentDetails.set(result);
@@ -78,19 +93,19 @@ export class PricingPlans implements OnInit {
     const currentDetails = this.shipmentDetails();
     this.plans().forEach(plan => {
       this.plansService.calculateShipmentCost(plan.id, currentDetails).subscribe({
-        next: (cost) => {
+        next: (cost: number) => {
           // Update plan in signal
           const updatedPlans = this.plans().map(p => 
             p.id === plan.id ? { ...p, avgShipmentCost: cost } : p
           );
           this.plans.set(updatedPlans);
+          this.cdr.markForCheck();
         }
       });
     });
   }
 
   activatePlan(plan: PricingPlan): void {
-    // Check if downgrading
     const current = this.currentPlan();
     if (current && this.isDowngrade(current, plan)) {
       this.openDowngradeConfirmation(plan);
@@ -109,15 +124,15 @@ export class PricingPlans implements OnInit {
     if (!current) return;
 
     this.plansService.getPlanBenefits(current.id).subscribe({
-      next: (benefits) => {
+      next: (benefits: PlanBenefits[]) => {
         this.plansService.getDowngradeEffectiveDate().subscribe({
-          next: (effectiveDate) => {
+          next: (effectiveDate: string) => {
             this.modalService.open(DowngradeConfirmationModal, {
               targetPlan: plan,
               currentPlan: current,
               benefits: benefits,
               effectiveDate: effectiveDate
-            }, '600px').subscribe((confirmed) => {
+            }, '600px').subscribe((confirmed: boolean) => {
               if (confirmed) {
                 this.confirmActivation(plan);
               }
@@ -130,41 +145,64 @@ export class PricingPlans implements OnInit {
 
   confirmActivation(plan: PricingPlan): void {
     this.loading.set(true);
+    this.cdr.markForCheck();
     this.plansService.activatePlan({
       planId: plan.id,
       shipmentDetails: this.shipmentDetails()
     }).subscribe({
-      next: (response) => {
+      next: (response: PlanActivationResponse) => {
         this.loading.set(false);
         if (response.success) {
           this.openActivationSuccessModal(plan, response);
           this.loadPlans(); // Reload to get updated current plan
         }
+        this.cdr.markForCheck();
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error activating plan:', error);
         this.loading.set(false);
+        this.cdr.markForCheck();
       }
     });
   }
 
-  openActivationSuccessModal(plan: PricingPlan, response: any): void {
+  openActivationSuccessModal(plan: PricingPlan, response: PlanActivationResponse): void {
     this.modalService.open(PlanActivationSuccessModal, {
       plan: plan,
       billingCycleDate: response.billingCycleDate
     }, '600px');
   }
 
-  openContactSalesModal(): void {
-    this.modalService.open(ContactSalesFormModal, undefined, '600px');
+  async openContactSalesModal(): Promise<void> {
+    const { ContactSalesFormModal } = await import('../contact-sales-form-modal/contact-sales-form-modal');
+    this.modalService.open(ContactSalesFormModal, undefined, '754px');
   }
 
-  openZeroFeeOfferModal(milestone: number): void {
-    this.modalService.open(ZeroMonthlyFeeOfferModal, { milestone }, '500px');
+  openZeroFeeOfferModal(plan: PricingPlan): void {
+    if (!plan.milestoneMatrix) return;
+    this.modalService.open(
+      ZeroMonthlyFeeOfferModal,
+      {
+        planName: plan.name,
+        milestoneMatrix: plan.milestoneMatrix,
+      },
+      '500px'
+    );
   }
 
   viewRateCard(plan: PricingPlan): void {
     // TODO: Implement rate card view
     console.log('View rate card for:', plan.name);
+  }
+
+  getImage(name: string): string {
+    return getImage(name);
+  }
+
+  /**
+   * Sanitize HTML content for safe rendering
+   */
+  getSafeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html || '');
   }
 }

@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShipmentDetails } from '../models/plan.model';
 import { ModalService } from '../services/modal.service';
+import { CdnIconComponent } from '../cdn-icons-images/getIcon/cdn-icon.component';
 
 @Component({
   selector: 'app-edit-sample-shipment-modal',
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CdnIconComponent
   ],
   templateUrl: './edit-sample-shipment-modal.html',
   styleUrl: './edit-sample-shipment-modal.scss',
@@ -88,5 +90,9 @@ export class EditSampleShipmentModal implements OnInit {
   isFieldInvalid(fieldName: string): boolean {
     const control = this.shipmentForm.get(fieldName);
     return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+
+  isSelected(fieldName: string, value: string): boolean {
+    return this.shipmentForm.get(fieldName)?.value === value;
   }
 }
