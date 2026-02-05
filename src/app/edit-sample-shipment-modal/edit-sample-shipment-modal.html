@@ -121,8 +121,11 @@
               formControlName="pickupPincode" 
               placeholder="110001"
               maxlength="6"
+              inputmode="numeric"
               class="box-border flex flex-row items-center px-3 py-1 w-full h-9 bg-white border border-[#D3D3D3] rounded-lg sf-pro-regular text-sm leading-5 tracking-[-0.150391px] text-[#374151] focus:outline-none focus:ring-2 focus:ring-[#745BE7] focus:border-transparent"
               [class.border-red-500]="isFieldInvalid('pickupPincode')"
+              (keypress)="onPincodeKeypress($event)"
+              (input)="onPincodeInput('pickupPincode', $event)"
             >
             @if (isFieldInvalid('pickupPincode')) {
               <p class="text-xs text-red-600 sf-pro-regular mt-1">
@@ -143,8 +146,11 @@
               formControlName="deliveryPincode" 
               placeholder="400059"
               maxlength="6"
+              inputmode="numeric"
               class="box-border flex flex-row items-center px-3 py-1 w-full h-9 bg-white border border-[#D3D3D3] rounded-lg sf-pro-regular text-sm leading-5 tracking-[-0.150391px] text-[#374151] focus:outline-none focus:ring-2 focus:ring-[#745BE7] focus:border-transparent"
               [class.border-red-500]="isFieldInvalid('deliveryPincode')"
+              (keypress)="onPincodeKeypress($event)"
+              (input)="onPincodeInput('deliveryPincode', $event)"
             >
             @if (isFieldInvalid('deliveryPincode')) {
               <p class="text-xs text-red-600 sf-pro-regular mt-1">

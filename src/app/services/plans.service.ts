@@ -14,6 +14,8 @@ export class PlansService {
   
   private readonly PLANS_API_BASE_URL = `${API_BASE_URL}settings/plans`;
   private readonly RATE_API_URL = 'https://serviceability.shiprocket.in/open/courier/serviceability';
+  // Postcode validation should use the same base path as other APIs (QA base)
+  private readonly POSTCODE_API_URL = `${API_BASE_URL}postcode/details`;
 
   /**
    * Get all plans from API
@@ -64,6 +66,34 @@ export class PlansService {
       catchError((error) => {
         console.error('Error fetching rate serviceability:', error);
         return of(null);
+      })
+    );
+  }
+
+  /**
+   * Validate a postcode using the base API.
+   * Returns true when postcode is serviceable/known, false otherwise.
+   */
+  validatePostcode(postcode: string): Observable<{ valid: boolean; message?: string }> {
+    if (!postcode || postcode.length !== 6) {
+      return of({ valid: false, message: 'Invalid pincode format' });
+    }
+
+    const params = new HttpParams()
+      .set('postcode', postcode)
+      .set('is_web', '1');
+
+    // Use the same auth headers as other QA APIs; start from HttpHeaders instance
+    let headers = this.authService.getAuthHeaders();
+    headers = headers.set('accept', 'application/json');
+
+    return this.http.get<any>(this.POSTCODE_API_URL, { params, headers }).pipe(
+      map(() => ({ valid: true })),
+      catchError((error) => {
+        console.error('Error validating postcode:', error);
+        // Extract error message from API response
+        const errorMessage = error?.error?.message || error?.message || 'Service not available for this pincode';
+        return of({ valid: false, message: errorMessage });
       })
     );
   }
