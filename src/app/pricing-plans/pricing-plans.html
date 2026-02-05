@@ -3,30 +3,43 @@
   <div class="max-w-7xl mx-auto px-4 py-10 rounded-xl"
     [style.background-image]="'url(' + getImage('plan-pricing-bg') + ')'">
     <div class="mb-10">
-      <div class="pricing-plan-title">Choose a pricing plan <span class="text-[#745BE7]">fits your business needs</span>
+      <div
+        class="mx-auto mb-8 max-w-[553px] h-9 text-center text-[24px] leading-[150%] font-bold text-[#282B4A] sf-pro-bold flex items-center justify-center"
+      >
+        Choose a pricing plan <span class="text-[#745BE7] ml-1">fits your business needs</span>
       </div>
 
-      <div class="sample-price-info">
-        <div class="sample-price-info-content">
-          <div class="sample-price-info-left">
-            <div class="sample-price-info-title-row">
-              <span class="sample-price-info-title">Sample shipment details to calculate your average shipment
-                cost*</span>
+      <!-- Sample shipment info (Tailwind-only layout) -->
+      <div
+        class="w-full h-[76px] border border-[#EDEFF7] shadow-[0px_4px_28px_rgba(0,0,0,0.04)] rounded-xl bg-white box-border"
+      >
+        <div class="flex items-center justify-between h-full px-4 py-3 gap-2">
+          <div class="flex flex-col gap-2 flex-1 min-w-0">
+            <div class="flex items-center h-5">
+              <span class="sf-pro-medium font-semibold text-[14px] leading-5 text-[#0E2D57]">
+                Sample shipment details to calculate your average shipment cost*
+              </span>
             </div>
-            <div class="sample-price-info-details-row">
-              <span class="sample-price-info-detail">Weight : <span class="sample-price-info-detail-value">{{ shipmentDetails().weight }}</span></span>
-                <app-cdn-icon name="dot" [width]="5" [height]="5"></app-cdn-icon>
-                <span class="sample-price-info-detail">Payment : <span class="sample-price-info-detail-value">{{ shipmentDetails().payment.toLowerCase() }}</span></span>
-                <app-cdn-icon name="dot" [width]="5" [height]="5"></app-cdn-icon>
-                <span class="sample-price-info-detail">Mode : <span class="sample-price-info-detail-value">{{ shipmentDetails().mode.toLowerCase() }}</span></span>
-                <app-cdn-icon name="dot" [width]="5" [height]="5"></app-cdn-icon>
-                <span class="sample-price-info-detail">Pickup Pincode : <span class="sample-price-info-detail-value">{{ shipmentDetails().pickupPincode }}</span></span>
-                <app-cdn-icon name="arrow-right" [width]="10" [height]="5"></app-cdn-icon>
-                <span class="sample-price-info-detail">Delivery Pincode : <span class="sample-price-info-detail-value">{{ shipmentDetails().deliveryPincode }}</span></span>
+            <div
+              class="flex flex-wrap items-center gap-2 text-[12px] leading-4 text-[#6B7280] sf-pro-regular"
+            >
+              <span>Weight : <span class="text-[#111827]">{{ shipmentDetails().weight }}</span></span>
+              <app-cdn-icon name="dot" [width]="5" [height]="5"></app-cdn-icon>
+              <span>Payment : <span class="text-[#111827]">{{ shipmentDetails().payment.toLowerCase() }}</span></span>
+              <app-cdn-icon name="dot" [width]="5" [height]="5"></app-cdn-icon>
+              <span>Mode : <span class="text-[#111827]">{{ shipmentDetails().mode.toLowerCase() }}</span></span>
+              <app-cdn-icon name="dot" [width]="5" [height]="5"></app-cdn-icon>
+              <span>Pickup Pincode : <span class="text-[#111827]">{{ shipmentDetails().pickupPincode }}</span></span>
+              <app-cdn-icon name="arrow-right" [width]="10" [height]="5"></app-cdn-icon>
+              <span>Delivery Pincode : <span class="text-[#111827]">{{ shipmentDetails().deliveryPincode }}</span></span>
             </div>
           </div>
-          <div class="sample-price-info-right">
-            <button (click)="openEditShipmentModal()" class="sample-price-info-edit-btn">
+
+          <div class="flex items-center h-6">
+            <button
+              (click)="openEditShipmentModal()"
+              class="flex items-center gap-2 text-[14px] leading-6 sf-pro-medium font-semibold text-[#735AE5] hover:opacity-80 active:opacity-60"
+            >
               <app-cdn-icon name="edit-pen" [width]="20" [height]="20"></app-cdn-icon>
               <span>Edit</span>
             </button>
@@ -86,11 +99,14 @@
 
           <!-- Gift Box Section -->
           @if (plan.milestoneMatrix) {
-            <div class="pricing-plan-gift-box">
-              <div class="pricing-plan-gift-icon-wrapper">
+            <div
+              class="box-border flex flex-col items-start gap-1 mx-auto w-[207px] h-[106px] px-3 py-4 border border-[#DEEBFF] rounded-[10px]"
+              style="background: linear-gradient(270deg, #FFFFFF 3.62%, #EAF6FF 100%);"
+            >
+              <div class="w-4 h-4">
                 <app-cdn-icon name="gift" [width]="16" [height]="16"></app-cdn-icon>
               </div>
-              <div class="pricing-plan-gift-text">
+              <div class="w-[183px] h-[54px] sf-pro-regular text-[12px] leading-[150%] text-[#373B62]">
                 @if (plan.milestoneMatrix.offerDetailsHtml) {
                   <span [innerHTML]="getSafeHtml(plan.milestoneMatrix.offerDetailsHtml)"></span>
                 }

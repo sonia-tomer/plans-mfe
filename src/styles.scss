@@ -21,7 +21,7 @@
   }
 }
 
-/* Custom Modal Styles */
+/* Custom Components & Utilities */
 @layer components {
   .modal-overlay {
     @apply fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4;
@@ -53,5 +53,25 @@
 
   .input-error {
     @apply border-red-500 focus:ring-red-500;
+  }
+}
+
+@layer utilities {
+  .sf-pro-regular {
+    font-family: 'SFProDisplay-Regular', 'SF Pro Text', 'Inter', 'Segoe UI', system-ui, -apple-system,
+      BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+  }
+
+  .sf-pro-medium {
+    font-family: 'SFProDisplay-Medium', 'SF Pro Text', 'Inter', 'Segoe UI', system-ui, -apple-system,
+      BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 600;
+  }
+
+  .sf-pro-bold {
+    font-family: 'SFProDisplay-Bold', 'SF Pro Text', 'Inter', 'Segoe UI', system-ui, -apple-system,
+      BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
   }
 }

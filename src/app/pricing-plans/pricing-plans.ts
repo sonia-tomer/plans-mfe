@@ -5,14 +5,12 @@ import { PricingPlan, ShipmentDetails, PlanBenefits, PlanActivationResponse } fr
 import { EditSampleShipmentModal } from '../edit-sample-shipment-modal/edit-sample-shipment-modal';
 import { PlanActivationSuccessModal } from '../plan-activation-success-modal/plan-activation-success-modal';
 import { DowngradeConfirmationModal } from '../downgrade-confirmation-modal/downgrade-confirmation-modal';
-import { ContactSalesFormModal } from '../contact-sales-form-modal/contact-sales-form-modal';
 import { ZeroMonthlyFeeOfferModal } from '../zero-monthly-fee-offer-modal/zero-monthly-fee-offer-modal';
 import { ModalService } from '../services/modal.service';
 import { getImage } from '../cdn-icons-images/getImage/getImage';
 import { CdnIconComponent } from '../cdn-icons-images/getIcon/cdn-icon.component';
 import { FeaturesSection } from './features-section/features-section';
 import { IntegrationSection } from './integration-section/integration-section';
-import { SubscriptionDialogModal } from '../subscription-dialog-modal/subscription-dialog-modal';
 @Component({
   selector: 'app-pricing-plans',
   imports: [CdnIconComponent, FeaturesSection, IntegrationSection], // Import CdnIconComponent for icons, FeaturesSection, and IntegrationSection
@@ -192,14 +190,17 @@ export class PricingPlans implements OnInit {
 
   confirmActivation(plan: PricingPlan): void {
     // Open lightweight subscription dialog (local copy of SR_Web subscription popup).
-    // After user confirms upgrade ("payment success"), proceed with activation and success modal.
-    this.modalService
-      .open(SubscriptionDialogModal, { plan }, '700px')
-      .subscribe((result: 'upgrade' | 'cancel' | undefined) => {
-        if (result === 'upgrade') {
-          this.executePlanActivation(plan);
-        }
-      });
+    // Loaded lazily so it doesn't bloat the initial bundle.
+    (async () => {
+      const { SubscriptionDialogModal } = await import('../subscription-dialog-modal/subscription-dialog-modal');
+      this.modalService
+        .open(SubscriptionDialogModal, { plan }, '700px')
+        .subscribe((result: 'upgrade' | 'cancel' | undefined) => {
+          if (result === 'upgrade') {
+            this.executePlanActivation(plan);
+          }
+        });
+    })();
   }
 
   /**

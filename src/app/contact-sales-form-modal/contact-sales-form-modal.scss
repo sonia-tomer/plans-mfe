@@ -1,135 +1,65 @@
 .contact-sales-modal {
-  box-sizing: border-box;
-  position: relative;
-  width: 724px;
-  height: 536px;
-  display: flex;
-  flex-direction: column;
+  @apply box-border relative flex flex-col w-[724px] h-[536px];
 }
 
 .dialog-header {
-  box-sizing: border-box;
-  width: 100%;
-  height: 60px;
-  border-bottom: 1px solid #E5E7EB;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
+  @apply box-border w-full h-[60px] border-b border-[#E5E7EB] flex items-center px-6;
   margin: -24px -24px 0 -24px;
 }
 
 .header-content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 20px;
+  @apply flex flex-row justify-between items-center w-full h-5;
 }
 
 .dialog-title {
-  width: auto;
-  height: 18px;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 18px;
-  color: #06064D;
-  margin: 0;
+  @apply h-[18px] font-semibold text-[18px] leading-[18px] text-[#06064D] m-0;
 }
 
 .close-button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  
+  @apply bg-transparent border-0 p-0 cursor-pointer flex items-center justify-center w-5 h-5;
+
   &:hover {
     opacity: 0.7;
   }
 }
 
 .form-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  @apply flex flex-col items-start gap-3 w-full mt-6 overflow-hidden;
   padding: 0;
-  gap: 12px;
   flex: 1;
-  overflow: hidden;
-  margin-top: 24px;
-  width: 100%;
 }
 
 .contact-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  @apply flex flex-col items-start gap-3 w-full;
   padding: 0;
-  gap: 12px;
-  width: 100%;
   flex: 0 0 auto;
   min-height: 0;
 }
 
 .form-row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  @apply flex flex-row items-start gap-3 w-full;
   padding: 0;
-  gap: 12px;
-  width: 100%;
 }
 
 .form-field-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  @apply flex flex-col items-start gap-2 w-[330px];
   padding: 0;
-  gap: 8px;
-  width: 330px;
   flex: none;
   flex-grow: 0;
 
   &.full-width {
-    width: 670px;
-    max-width: 100%;
+    @apply w-[670px] max-w-full;
   }
 }
 
 .field-label {
-  width: auto;
-  height: 20px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  color: #0E2D57;
-  margin: 0;
+  @apply h-5 font-medium text-[14px] leading-5 text-[#0E2D57] m-0;
 }
 
 .form-input,
 .form-select {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 4px 12px;
-  width: 100%;
-  height: 36px;
-  background: #FFFFFF;
-  border: 1px solid #D3D3D3;
-  border-radius: 8px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  color: #0E2D57;
+  @apply box-border flex flex-row items-center px-3 py-1 w-full h-9 bg-white border border-[#D3D3D3] rounded-lg;
+  @apply text-[14px] leading-[17px] text-[#0E2D57];
 
   &::placeholder {
     color: #6B7280;
@@ -154,30 +84,13 @@
 }
 
 .textarea-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  @apply flex flex-col items-start gap-1 w-full;
   padding: 0;
-  gap: 4px;
-  width: 100%;
 }
 
 .form-textarea {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 10px 12px;
-  width: 100%;
-  height: 60px;
-  background: #FFFFFF;
-  border: 1px solid #D3D3D3;
-  border-radius: 8px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: #0E2D57;
+  @apply box-border flex flex-row items-start px-3 py-2.5 w-full h-[60px] bg-white border border-[#D3D3D3] rounded-lg;
+  @apply text-[14px] leading-5 text-[#0E2D57];
   resize: none;
   overflow: hidden;
 
@@ -192,58 +105,21 @@
 }
 
 .character-count {
-  width: auto;
-  height: 16px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  color: #6B7280;
-  margin: 0;
+  @apply h-4 text-[12px] leading-4 text-[#6B7280] m-0;
 }
 
 .error-message {
-  margin: 0;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  color: #EF4444;
+  @apply m-0 text-[12px] leading-4 text-[#EF4444];
 }
 
 .action-buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  @apply flex flex-row items-center justify-center gap-4 w-full h-9 flex-shrink-0;
   padding: 0;
-  gap: 16px;
-  width: 100%;
-  height: 36px;
-  flex-shrink: 0;
 }
 
 .btn-cancel {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 32px;
-  gap: 8px;
-  width: 150px;
-  height: 36px;
-  background: #FFFFFF;
-  border: 1px solid #745BE7;
-  border-radius: 6px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: -0.150391px;
-  color: #745BE7;
-  cursor: pointer;
-  transition: all 0.2s;
+  @apply box-border flex flex-row justify-center items-center px-8 py-2 gap-2 w-[150px] h-9 bg-white border border-[#745BE7] rounded-[6px];
+  @apply font-medium text-[14px] leading-5 tracking-[-0.150391px] text-[#745BE7] cursor-pointer transition-all duration-200;
 
   &:hover:not(:disabled) {
     background: #F5F3FF;
@@ -256,24 +132,8 @@
 }
 
 .btn-submit {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 32px;
-  gap: 8px;
-  width: 168px;
-  height: 36px;
-  background: #745BE7;
-  border: none;
-  border-radius: 6px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  color: #FFFFFF;
-  cursor: pointer;
-  transition: all 0.2s;
+  @apply flex flex-row justify-center items-center px-8 py-2 gap-2 w-[168px] h-9 bg-[#745BE7] rounded-[6px];
+  @apply font-medium text-[14px] leading-5 text-white cursor-pointer transition-all duration-200 border-0;
 
   &:hover:not(:disabled) {
     background: #6345D1;
