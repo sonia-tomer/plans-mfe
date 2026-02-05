@@ -1,3 +1,29 @@
+/* SF Pro Fonts from CDN */
+@font-face {
+  font-family: 'SFProDisplay-Regular';
+  src: url('https://sr-cdn-1.shiprocket.in/shiprocket/files/plans_SFProDisplay-Regular.woff2') format('woff2'),
+    url('https://sr-cdn-1.shiprocket.in/shiprocket/files/plans_SFProDisplay-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: optional;
+}
+@font-face {
+  font-family: 'SFProDisplay-Medium';
+  src: url('https://sr-cdn-1.shiprocket.in/shiprocket/files/plans_SFProDisplay-Medium.woff2') format('woff2'),
+    url('https://sr-cdn-1.shiprocket.in/shiprocket/files/plans_SFProDisplay-Medium.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: optional;
+}
+@font-face {
+  font-family: 'SFProDisplay-Bold';
+  src: url('https://sr-cdn-1.shiprocket.in/shiprocket/files/plans_SFProDisplay-Bold.woff2') format('woff2'),
+    url('https://sr-cdn-1.shiprocket.in/shiprocket/files/plans_SFProDisplay-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: optional;
+}
+
 /* Tailwind CSS */
 @tailwind base;
 @tailwind components;

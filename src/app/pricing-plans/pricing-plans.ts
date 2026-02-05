@@ -36,26 +36,16 @@ export class PricingPlans implements OnInit {
     orderValue: 1000
   });
 
-  // Computed signals for derived state - more efficient
+  // Computed signals for derived state - used for logic only
   currentPlan = computed(() => this.plans().find(p => p.isCurrentPlan) || null);
   recommendedPlan = computed(() => this.plans().find(p => p.isRecommended) || null);
-  shipmentDetailsDisplay = computed(() => {
-    const details = this.shipmentDetails();
-    return `${details.weight} • ${details.mode} Mode • ${details.payment} • ${details.pickupPincode} → ${details.deliveryPincode}`;
-  });
 
-  // Shipment details as array for display with dots
-  shipmentDetailsArray = computed(() => {
-    const details = this.shipmentDetails();
-    return [
-      `Based on ${details.weight} ${details.payment.toLowerCase()} ${details.mode.toLowerCase()} shipment`,
-      details.pickupPincode,
-      details.deliveryPincode
-    ];
-  });
+  // Static background image URLs computed once for better perf
+  readonly planPricingBgUrl = `url(${getImage('plan-pricing-bg')})`;
+  readonly largeBusinessBgUrl = `url(${getImage('large-business-section-bg')})`;
+  readonly calculatorBgUrl = `url(${getImage('calculator-bg')})`;
 
   ngOnInit(): void {
-    console.log('✅ PricingPlans component initialized');
     this.loadPlans();
   }
 

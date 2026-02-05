@@ -1,4 +1,4 @@
-<div [style.background-image]="'url(' + getImage('plan-pricing-bg') + ')'" class="flex flex-col gap-4 max-w-7xl mx-auto mt-8 pl-[50px] pr-[50px]">
+<div [style.background-image]="planPricingBgUrl" class="flex flex-col gap-4 max-w-7xl mx-auto mt-8 pl-[50px] pr-[50px]">
 
   <div class="">
     <div class="mb-10">
@@ -152,8 +152,44 @@
         }
       </div>
       } @else {
-      <div class="flex items-center justify-center h-[720px] text-gray-600">
-        <p>Loading plans...</p>
+      <!-- Skeleton loader: matches grid + card footprint to avoid layout shift -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 animate-pulse">
+        @for (i of [0,1,2,3]; track i) {
+        <div class="pricing-plan-card">
+          <div class="pricing-plan-card-inner">
+            <div class="pricing-plan-header">
+              <div class="pricing-plan-title-section">
+                <div class="h-5 w-32 bg-gray-200 rounded mb-2"></div>
+                <div class="pricing-plan-price-section">
+                  <div class="h-6 w-24 bg-gray-200 rounded mb-2"></div>
+                  <div class="h-10 w-40 bg-gray-100 rounded"></div>
+                </div>
+              </div>
+              <div class="pricing-plan-avg-cost">
+                <div class="h-4 w-28 bg-gray-200 rounded mb-1"></div>
+                <div class="pricing-plan-avg-cost-value">
+                  <div class="h-6 w-12 bg-gray-200 rounded mb-1"></div>
+                  <div class="pricing-plan-avg-cost-line"></div>
+                </div>
+              </div>
+              <div class="pricing-plan-features">
+                <div class="h-4 w-20 bg-gray-200 rounded mb-1"></div>
+                <ul class="pricing-plan-features-list">
+                  @for (j of [0,1,2]; track j) {
+                  <li class="pricing-plan-feature-item">
+                    <div class="w-3 h-3 bg-gray-200 rounded-full"></div>
+                    <div class="h-4 w-32 bg-gray-200 rounded"></div>
+                  </li>
+                  }
+                </ul>
+              </div>
+            </div>
+            <div class="pricing-plan-actions mt-4">
+              <div class="w-[207px] h-[34px] bg-gray-200 rounded-md"></div>
+            </div>
+          </div>
+        </div>
+        }
       </div>
       }
     </div>
@@ -161,7 +197,7 @@
     <!-- Large Business Section -->
     <div
       class="w-full  mx-auto border border-[#EDEFF7] shadow-[0px_2px_12px_rgba(0,0,10,0.02)] rounded-xl py-6 px-6 bg-white relative overflow-hidden"
-      [style.background-image]="'url(' + getImage('large-business-section-bg') + ')'" [style.background-size]="'cover'">
+      [style.background-image]="largeBusinessBgUrl" [style.background-size]="'cover'">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <!-- Text Content -->
         <div class="flex flex-col gap-4 flex-1">
@@ -194,7 +230,7 @@
           <div
             class="absolute inset-0 flex flex-col justify-center items-center py-6 gap-4 px-[45px]"
             style=" border: 1px solid #EDEFF7; box-shadow: 0px 2px 12px rgba(0, 0, 10, 0.02); border-radius: 12px;"
-            [style.background-image]="'url(' + getImage('calculator-bg') + ')'"
+            [style.background-image]="calculatorBgUrl"
           >
             <div class="flex flex-col items-center gap-2 w-full max-w-[688px] z-10">
               <app-cdn-icon name="calculator" [width]="56" [height]="56"></app-cdn-icon>
