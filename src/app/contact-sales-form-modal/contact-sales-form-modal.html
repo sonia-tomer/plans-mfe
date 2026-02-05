@@ -11,6 +11,7 @@
 
   <!-- Form Content -->
   <div class="form-content">
+    @if (!submittedSuccessfully) {
     <form [formGroup]="contactForm" class="contact-form">
       <!-- Row 1: Full Name and Email -->
       <div class="form-row">
@@ -168,5 +169,24 @@
         {{ loading ? 'Submitting...' : 'Submit Request' }}
       </button>
     </div>
+    } @else {
+      <!-- Success Screen -->
+      <div class="flex flex-col items-center justify-center gap-4 py-8 px-4 text-center">
+        <app-cdn-icon name="green-tick" [width]="40" [height]="40"></app-cdn-icon>
+        <h3 class="sf-pro-bold text-[20px] leading-[120%] text-[#06064D]">
+          Thank you for your interest!
+        </h3>
+        <p class="sf-pro-regular text-[14px] leading-[150%] text-[#6B7280] max-w-[420px]">
+          Our sales team has received your request and will contact you shortly with more details.
+        </p>
+        <button
+          type="button"
+          class="btn-submit sf-pro-medium"
+          (click)="onCancel()"
+        >
+          Close
+        </button>
+      </div>
+    }
   </div>
 </div>

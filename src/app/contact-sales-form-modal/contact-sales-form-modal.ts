@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactSalesService, ContactSalesResponse } from '../services/contact-sales.service';
@@ -20,11 +20,13 @@ export class ContactSalesFormModal {
   private fb = inject(FormBuilder);
   private modalService = inject(ModalService);
   private contactSalesService = inject(ContactSalesService);
+  private cdr = inject(ChangeDetectorRef);
 
   contactForm: FormGroup;
   loading = false;
   characterCount = 0;
   maxCharacters = 500;
+  submittedSuccessfully = false;
 
   shippingProviders = [
     'Delhivery',
@@ -71,14 +73,17 @@ export class ContactSalesFormModal {
         next: (response: ContactSalesResponse) => {
           this.loading = false;
           if (response.success) {
+            this.submittedSuccessfully = true;
+          } else {
             alert(response.message);
-            this.modalService.close();
           }
+          this.cdr.detectChanges();
         },
         error: (error: any) => {
           console.error('Error submitting form:', error);
           this.loading = false;
           alert('An error occurred. Please try again.');
+          this.cdr.detectChanges();
         }
       });
     } else {
