@@ -66,6 +66,9 @@ export class PricingPlans implements OnInit {
       next: (plans: PricingPlan[]) => {
         this.plans.set(plans);
         this.loading.set(false);
+        // Call rate serviceability API in parallel for current shipment details.
+        // We'll log the response for now; binding to avgShipmentCost will be decided from the response shape.
+        this.fetchRateServiceability();
         this.cdr.markForCheck();
       },
       error: (error: any) => {
@@ -73,6 +76,41 @@ export class PricingPlans implements OnInit {
         this.loading.set(false);
         this.cdr.markForCheck();
       }
+    });
+  }
+
+  private fetchRateServiceability(): void {
+    const details = this.shipmentDetails();
+    this.plansService.getRateServiceability(details).subscribe((response) => {
+      if (!response || !response.data || !response.data.rates) {
+        console.warn('Rate serviceability response missing rates:', response);
+        return;
+      }
+
+      const rates = response.data.rates as Record<string, any>;
+
+      const updatedPlans = this.plans().map((plan) => {
+        const planRate = rates[plan.name];
+        const surfaceZoneA = planRate?.surface?.zone_a;
+        const minStr = surfaceZoneA?.min as string | undefined;
+
+        if (!minStr || minStr === 'NA') {
+          return plan;
+        }
+
+        const cost = Number(minStr);
+        if (!Number.isFinite(cost)) {
+          return plan;
+        }
+
+        return {
+          ...plan,
+          avgShipmentCost: Math.round(cost),
+        };
+      });
+
+      this.plans.set(updatedPlans);
+      this.cdr.markForCheck();
     });
   }
 
@@ -115,8 +153,16 @@ export class PricingPlans implements OnInit {
   }
 
   isDowngrade(currentPlan: PricingPlan, newPlan: PricingPlan): boolean {
-    // Compare plan tiers - lower price means downgrade
-    return newPlan.price < currentPlan.price;
+    // Treat as downgrade when current activated plan id is greater than the target plan id
+    const currentId = Number(currentPlan.id);
+    const newId = Number(newPlan.id);
+
+    if (Number.isFinite(currentId) && Number.isFinite(newId)) {
+      return currentId > newId;
+    }
+
+    // Fallback: if ids are not numeric, do not treat as downgrade
+    return false;
   }
 
   openDowngradeConfirmation(plan: PricingPlan): void {

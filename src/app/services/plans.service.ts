@@ -12,6 +12,7 @@ export class PlansService {
   private authService = inject(AuthService);
   
   private readonly API_BASE_URL = 'https://multichannel-channels-partnerships-qa-api.kartrocket.com/v1/settings/plans';
+  private readonly RATE_API_URL = 'https://serviceability.shiprocket.in/open/courier/serviceability';
 
   /**
    * Get all plans from API
@@ -30,6 +31,49 @@ export class PlansService {
         return of([]);
       })
     );
+  }
+
+  /**
+   * Call open serviceability API to get courier serviceability / rate info
+   * Used to derive avgShipmentCost in UI (response mapping to be decided).
+   */
+  getRateServiceability(details: ShipmentDetails): Observable<any> {
+    // For now, match the provided curl exactly (static params).
+    // Later we can switch back to using `details` dynamically.
+    const params = new HttpParams()
+      .set('pickup_postcode', '110042')
+      .set('delivery_postcode', '110030')
+      .set('weight', '0.5')
+      .set('cod', '1')
+      .set('declared_value', '')
+      .set('breadth', '')
+      .set('length', '')
+      .set('height', '');
+
+    // Open API: no auth token
+    const headers = {
+      accept: '*/*',
+    };
+
+    return this.http.get<any>(this.RATE_API_URL, { params, headers }).pipe(
+      catchError((error) => {
+        console.error('Error fetching rate serviceability:', error);
+        return of(null);
+      })
+    );
+  }
+
+  private mapWeightToKg(weight: ShipmentDetails['weight']): number {
+    switch (weight) {
+      case '500g':
+        return 0.5;
+      case '1kg':
+        return 1;
+      case '2kg':
+        return 2;
+      default:
+        return 1;
+    }
   }
 
   /**
@@ -82,14 +126,8 @@ export class PlansService {
     
     const planId = String(plan.id || '');
     
-    // Map plan name (e.g., "Lite" -> "Free") - used in: {{ plan.name }}
-    const planNameMap: Record<string, string> = {
-      'Lite': 'Free',
-      'Business Plan': 'Starter',
-      'Advanced 2.0': 'Professional',
-      'Pro 2.0': 'Enterprise'
-    };
-    const planName = planNameMap[plan.name] || plan.name || 'Unknown';
+    // Use API name directly (e.g., "Business Plan") - used in: {{ plan.name }}
+    const planName = plan.name || 'Unknown';
     
     // Get price from mandate_properties.amount - used in: {{ plan.priceDisplay }}
     const price = plan.restrictions?.mandate_properties?.amount || 0;
