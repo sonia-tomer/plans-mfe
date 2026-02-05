@@ -4,7 +4,7 @@
 
 .dialog-header {
   @apply box-border w-full h-[60px] border-b border-[#E5E7EB] flex items-center px-6;
-  margin: -24px -24px 0 -24px;
+  @apply -mt-6 -mx-6;
 }
 
 .header-content {
@@ -24,21 +24,15 @@
 }
 
 .form-content {
-  @apply flex flex-col items-start gap-3 w-full mt-6 overflow-hidden;
-  padding: 0;
-  flex: 1;
+  @apply flex flex-col items-start gap-3 w-full mt-6 overflow-hidden p-0 flex-1;
 }
 
 .contact-form {
-  @apply flex flex-col items-start gap-3 w-full;
-  padding: 0;
-  flex: 0 0 auto;
-  min-height: 0;
+  @apply flex flex-col items-start gap-3 w-full p-0 flex-none min-h-0;
 }
 
 .form-row {
-  @apply flex flex-row items-start gap-3 w-full;
-  padding: 0;
+  @apply flex flex-row items-start gap-3 w-full p-0;
 }
 
 .form-field-container {
@@ -84,8 +78,7 @@
 }
 
 .textarea-container {
-  @apply flex flex-col items-start gap-1 w-full;
-  padding: 0;
+  @apply flex flex-col items-start gap-1 w-full p-0;
 }
 
 .form-textarea {
@@ -113,8 +106,7 @@
 }
 
 .action-buttons {
-  @apply flex flex-row items-center justify-center gap-4 w-full h-9 flex-shrink-0;
-  padding: 0;
+  @apply flex flex-row items-center justify-center gap-4 w-full h-9 flex-shrink-0 p-0;
 }
 
 .btn-cancel {
