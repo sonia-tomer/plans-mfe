@@ -1,14 +1,14 @@
-<div class="box-border absolute w-[510px] h-[523px] left-[calc(50%-255px)] top-[calc(50%-295px)] bg-white border border-black/10 shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] rounded-[10px]">
+<div class="edit-shipment-modal">
   <!-- Dialog Header -->
-  <div class="box-border absolute w-[510px] h-[59px] left-0 top-0 border-b border-[#E5E7EB]">
-    <div class="flex flex-row justify-between items-center p-0  absolute w-[462px] h-5 left-6 top-6">
-      <h2 class=" h-[18px] sf-pro-bold text-lg leading-[18px] text-[#06064D] flex-none order-0 flex-grow-0">
+  <div class="modal-header">
+    <div class="header-content">
+      <h2 class="sf-pro-bold text-lg leading-[18px] text-[#06064D]">
         Edit Sample Shipment
       </h2>
       <button 
         type="button" 
         (click)="onCancel()"
-        class="flex flex-col items-start p-0 w-5 h-5 rounded-none flex-none order-1 flex-grow-0 cursor-pointer bg-transparent border-none"
+        class="flex items-center justify-center p-0 w-5 h-5 cursor-pointer bg-transparent border-none"
       >
         <app-cdn-icon name="close" [width]="15" [height]="15"></app-cdn-icon>
       </button>
@@ -16,17 +16,15 @@
   </div>
 
   <!-- Form Content -->
-  <form [formGroup]="shipmentForm" class="flex flex-col items-end p-0 gap-8 absolute w-[462px] left-6 top-[75px]">
-    <div class="flex flex-col items-start p-0 gap-6 w-[462px] flex-none order-0 self-stretch flex-grow-0">
+  <form [formGroup]="shipmentForm" class="modal-form">
+    <div class="form-section">
       <!-- Weight Selection -->
-      <div class="flex flex-col items-start p-0 gap-3 w-[462px] h-[68px] flex-none order-0 self-stretch flex-grow-0">
-        <label class="w-[43px] h-5 sf-pro-medium text-sm leading-5 text-[#0E2D57] flex-none order-0 flex-grow-0">
-          Weight
-        </label>
-        <div class="flex flex-row items-start p-0 gap-3 w-[462px] h-[38px] flex-none order-1 self-stretch flex-grow-0">
+      <div class="field-group">
+        <label class="field-label">Weight</label>
+        <div class="radio-group">
           @for (weight of weightOptions; track weight) {
             <label 
-              class="box-border flex items-center justify-center cursor-pointer h-[38px] border rounded-[10px] px-6"
+              class="radio-label"
               [class.bg-[rgba(116,91,231,0.1)]]="isSelected('weight', weight)"
               [class.border-[#745BE7]]="isSelected('weight', weight)"
               [class.bg-white]="!isSelected('weight', weight)"
@@ -49,14 +47,12 @@
       </div>
 
       <!-- Mode Selection -->
-      <div class="flex flex-col items-start p-0 gap-3 w-[462px] h-[70px] flex-none order-1 self-stretch flex-grow-0">
-        <label class="w-[35px] h-5 sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#0E2D57] flex-none order-0 flex-grow-0">
-          Mode
-        </label>
-        <div class="flex flex-row items-start p-0 gap-3 w-[462px] h-[38px] flex-none order-1 self-stretch flex-grow-0">
+      <div class="field-group">
+        <label class="field-label">Mode</label>
+        <div class="radio-group">
           @for (mode of modeOptions; track mode) {
             <label 
-              class="box-border flex items-center justify-center cursor-pointer h-[38px] border rounded-[10px] px-6"
+              class="radio-label"
               [class.bg-[rgba(116,91,231,0.1)]]="isSelected('mode', mode)"
               [class.border-[#745BE7]]="isSelected('mode', mode)"
               [class.bg-white]="!isSelected('mode', mode)"
@@ -79,14 +75,12 @@
       </div>
 
       <!-- Payment Selection -->
-      <div class="flex flex-col items-start p-0 gap-3 w-[462px] h-[70px] flex-none order-2 self-stretch flex-grow-0">
-        <label class="w-[53px] h-5 sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#0E2D57] flex-none order-0 flex-grow-0">
-          Payment
-        </label>
-        <div class="flex flex-row items-start p-0 gap-3 w-[462px] h-[38px] flex-none order-1 self-stretch flex-grow-0">
+      <div class="field-group">
+        <label class="field-label">Payment</label>
+        <div class="radio-group">
           @for (payment of paymentOptions; track payment) {
             <label 
-              class="box-border flex items-center justify-center cursor-pointer h-[38px] border rounded-[10px] px-6"
+              class="radio-label"
               [class.bg-[rgba(116,91,231,0.1)]]="isSelected('payment', payment)"
               [class.border-[#745BE7]]="isSelected('payment', payment)"
               [class.bg-white]="!isSelected('payment', payment)"
@@ -109,12 +103,10 @@
       </div>
 
       <!-- Pickup and Delivery Pincode -->
-      <div class="flex flex-row justify-between items-start p-0 gap-6 w-[462px] flex-none order-3 self-stretch flex-grow-0">
+      <div class="pincode-row">
         <!-- Pickup Pincode -->
-        <div class="flex flex-col items-start p-0 gap-3 mx-auto w-[220px] flex-none order-0 flex-grow-0">
-          <label class="w-[92px] h-5 sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#0E2D57] flex-none order-0 flex-grow-0">
-            Pickup Pincode
-          </label>
+        <div class="pincode-field">
+          <label class="field-label">Pickup Pincode</label>
           <div class="w-full">
             <input 
               type="text" 
@@ -136,10 +128,8 @@
         </div>
 
         <!-- Delivery Pincode -->
-        <div class="flex flex-col items-start p-0 gap-3 mx-auto w-[220px] flex-none order-1 flex-grow-0">
-          <label class="w-[99px] h-5 sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#0E2D57] flex-none order-0 flex-grow-0">
-            Delivery Pincode
-          </label>
+        <div class="pincode-field">
+          <label class="field-label">Delivery Pincode</label>
           <div class="w-full">
             <input 
               type="text" 
@@ -163,11 +153,11 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex flex-row justify-center items-center p-0 gap-4 w-[462px] h-9 flex-none order-1 self-stretch flex-grow-0">
-      <button type="button" (click)="onCancel()" class="box-border flex flex-row justify-center items-center px-8 py-2 gap-2 w-[150px] h-9 bg-white border border-[#745BE7] rounded-md sf-pro-medium text-sm leading-5 tracking-[-0.150391px] text-[#745BE7] flex-none order-0 flex-grow-0">
+    <div class="action-buttons">
+      <button type="button" (click)="onCancel()" class="btn-cancel">
         Cancel
       </button>
-      <button type="button" (click)="onCalculate()" class="flex flex-row justify-center items-center px-8 py-2 gap-2 w-[214px] h-9 bg-[#745BE7] rounded-md sf-pro-medium text-sm leading-5 text-white flex-none order-1 flex-grow-0">
+      <button type="button" (click)="onCalculate()" class="btn-submit">
         Calculate Shipment Cost
       </button>
     </div>

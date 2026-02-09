@@ -1,26 +1,26 @@
-<div [style.background-image]="planPricingBgUrl" class="flex flex-col gap-4 max-w-7xl mx-auto mt-8 pl-[50px] pr-[50px]">
+<div [style.background-image]="planPricingBgUrl" class="flex flex-col gap-4 max-w-7xl mx-auto mt-4 md:mt-8 px-4 md:px-8 lg:px-[50px]">
 
   <div class="">
     <div class="mb-10">
       <div
-        class="mx-auto mb-8 max-w-[553px] h-9 text-center text-[24px] leading-[150%] font-bold text-[#282B4A] sf-pro-bold flex items-center justify-center"
+        class="mx-auto mb-6 md:mb-8 max-w-[553px] min-h-[36px] text-center text-lg md:text-[24px] leading-[150%] font-bold sf-pro-bold flex items-center justify-center px-4"
       >
-        Choose a pricing plan <span class="text-[#745BE7] ml-1">fits your business needs</span>
+      <span class="bg-gradient-to-r from-[#0B2110] via-[#4E3AA9] to-[#735AE5] bg-clip-text text-transparent">Choose a pricing plan that fits your business needs</span>
       </div>
 
       <!-- Sample shipment info (Tailwind-only layout) -->
       <div
-        class="w-full h-[76px] border border-[#EDEFF7] shadow-[0px_4px_28px_rgba(0,0,0,0.04)] rounded-xl bg-white box-border"
+        class="w-full border border-[#EDEFF7] shadow-[0px_4px_28px_rgba(0,0,0,0.04)] rounded-xl bg-white box-border"
       >
-        <div class="flex items-center justify-between h-full px-4 py-3 gap-2">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between h-full px-4 py-3 gap-0 md:gap-2">
           <div class="flex flex-col gap-2 flex-1 min-w-0">
-            <div class="flex items-center h-5">
+            <div class="flex items-center">
               <span class="sf-pro-medium font-semibold text-[14px] leading-5 text-[#0E2D57]">
                 Sample shipment details to calculate your average shipment cost*
               </span>
             </div>
             <div
-              class="flex flex-wrap items-center gap-2 text-[12px] leading-4 text-[#6B7280] sf-pro-regular"
+              class="flex flex-wrap items-center gap-1 md:gap-2 text-[11px] md:text-[12px] leading-4 text-[#6B7280] sf-pro-regular"
             >
               <span>Weight : <span class="text-[#111827]">{{ shipmentDetails().weight }}</span></span>
               <app-cdn-icon name="dot" [width]="5" [height]="5"></app-cdn-icon>
@@ -49,7 +49,8 @@
 
     <div class="min-h-[720px]">
       @if (!loading()) {
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div class="pricing-cards-container">
+        <div class="pricing-cards-wrapper min-w-[1000px] lg:min-w-0">
         @for (plan of plans(); track plan.id) {
         <div class="pricing-plan-card" [class.pricing-plan-card-current]="plan.isCurrentPlan">
         <!-- CURRENT PLAN Label -->
@@ -63,7 +64,7 @@
         </div>
         }
         <!-- Plan Card Inner Container -->
-        <div class="pricing-plan-card-inner" [class.pricing-plan-card-inner-current]="plan.isCurrentPlan">
+        <div class="pricing-plan-card-inner p-3" [class.pricing-plan-card-inner-current]="plan.isCurrentPlan">
           <!-- Plan Header Section -->
           <div class="pricing-plan-header">
             <div class="pricing-plan-title-section">
@@ -100,13 +101,13 @@
           <!-- Gift Box Section -->
           @if (plan.milestoneMatrix) {
             <div
-              class="box-border flex flex-col items-start gap-1 mx-auto w-[207px] h-[106px] px-3 py-4 border border-[#DEEBFF] rounded-[10px]"
+              class="box-border flex flex-col items-start gap-1 mx-auto px-3 py-4 border border-[#DEEBFF] rounded-[10px]"
               style="background: linear-gradient(270deg, #FFFFFF 3.62%, #EAF6FF 100%);"
             >
               <div class="w-4 h-4">
                 <app-cdn-icon name="gift" [width]="16" [height]="16"></app-cdn-icon>
               </div>
-              <div class="w-[183px] h-[54px] sf-pro-regular text-[12px] leading-[150%] text-[#373B62]">
+              <div class="sf-pro-regular text-[12px] leading-[150%] text-[#373B62]">
                 @if (plan.milestoneMatrix.offerDetailsHtml) {
                   <span [innerHTML]="getSafeHtml(plan.milestoneMatrix.offerDetailsHtml)"></span>
                 }
@@ -121,7 +122,7 @@
           }
 
       
-          <div class="pricing-plan-renewal-date">Next renewal: {{ plan.nextRenewalDate }}</div>
+          <div class="pricing-plan-renewal-date mx-auto">Next renewal: {{ plan.nextRenewalDate }}</div>
           
 
           <!-- Action Section -->
@@ -150,10 +151,12 @@
           </div>
         </div>
         }
+        </div>
       </div>
       } @else {
       <!-- Skeleton loader: matches grid + card footprint to avoid layout shift -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 animate-pulse">
+      <div class="pricing-cards-container">
+        <div class="pricing-cards-wrapper animate-pulse min-w-[1000px] lg:min-w-0">
         @for (i of [0,1,2,3]; track i) {
         <div class="pricing-plan-card">
           <div class="pricing-plan-card-inner">
@@ -190,18 +193,19 @@
           </div>
         </div>
         }
+        </div>
       </div>
       }
     </div>
 
     <!-- Large Business Section -->
     <div
-      class="w-full  mx-auto border border-[#EDEFF7] shadow-[0px_2px_12px_rgba(0,0,10,0.02)] rounded-xl py-6 px-6 bg-white relative overflow-hidden"
+      class="w-full mx-auto border border-[#EDEFF7] shadow-[0px_2px_12px_rgba(0,0,10,0.02)] rounded-xl py-4 md:py-6 px-4 md:px-6 bg-white relative overflow-hidden"
       [style.background-image]="largeBusinessBgUrl" [style.background-size]="'cover'">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <!-- Text Content -->
         <div class="flex flex-col gap-4 flex-1">
-          <h3 class="sf-pro-bold font-bold text-2xl leading-[120%] text-[#06064D]">
+          <h3 class="sf-pro-bold font-bold text-lg md:text-2xl leading-[120%] text-[#06064D]">
             Running a large business that ships 10,000+ orders a month?
           </h3>
           <p class="sf-pro-regular font-normal text-base leading-6 text-[#6B7280]">
@@ -211,7 +215,7 @@
 
         <!-- Button -->
         <button (click)="openContactSalesModal()"
-          class="flex flex-row justify-center items-center px-5 py-3 gap-2 bg-[#735AE5] hover:bg-[#6349d4] rounded-md sf-pro-medium font-semibold text-sm  text-white whitespace-nowrap transition-colors">
+          class="w-full md:w-auto flex flex-row justify-center items-center px-5 py-3 gap-2 bg-[#735AE5] hover:bg-[#6349d4] rounded-md sf-pro-medium font-semibold text-sm text-white whitespace-nowrap transition-colors">
           Contact Sales
         </button>
       </div>
@@ -220,24 +224,24 @@
   
   <!-- Understand Shipping Cost Section (deferred, below-the-fold) -->
   @defer {
-    <div class="w-full max-w-[1164px] mx-auto px-4 mt-6 rounded-xl">
+    <div class="w-full max-w-[1164px] mx-auto px-0 md:px-4 mt-0 md:mt-6 rounded-xl">
       <div
-        class="h-[276px] flex justify-center items-center px-10 py-4 bg-white shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-xl"
+        class="min-h-[276px] flex justify-center items-center px-4 md:px-10 py-4 bg-white shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-xl"
       >
         <div
-          class="w-full h-[226px] bg-white shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-xl relative overflow-hidden"
+          class="w-full min-h-[226px] bg-white shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-xl relative overflow-hidden"
         >
           <div
-            class="absolute inset-0 flex flex-col justify-center items-center py-6 gap-4 px-[45px]"
+            class="absolute inset-0 flex flex-col justify-center items-center py-6 gap-4 px-4 md:px-[45px]"
             style=" border: 1px solid #EDEFF7; box-shadow: 0px 2px 12px rgba(0, 0, 10, 0.02); border-radius: 12px;"
             [style.background-image]="calculatorBgUrl"
           >
             <div class="flex flex-col items-center gap-2 w-full max-w-[688px] z-10">
               <app-cdn-icon name="calculator" [width]="56" [height]="56"></app-cdn-icon>
-              <h3 class="sf-pro-bold font-bold text-2xl leading-[120%] text-center text-[#06064D]">
+              <h3 class="sf-pro-bold font-bold text-lg md:text-2xl leading-[120%] text-center text-[#06064D]">
                 Understand your shipping cost better
               </h3>
-              <p class="sf-pro-regular font-normal text-base leading-[130%] text-center text-[#6B7280]">
+              <p class="sf-pro-regular font-normal text-sm md:text-base leading-[130%] text-center text-[#6B7280]">
                 Use the calculator below to share your shipment breakdown and get the average monthly shipping cost
               </p>
             </div>

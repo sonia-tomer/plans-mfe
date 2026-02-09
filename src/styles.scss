@@ -49,6 +49,33 @@
   }
 }
 
+/* Responsive Modal Utilities */
+@layer components {
+  .modal-responsive {
+    @apply max-w-full;
+    
+    @media (max-width: 767px) {
+      @apply mx-4 my-4 max-h-[90vh] overflow-y-auto;
+    }
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium text-sm transition-colors;
+    
+    &.btn-primary {
+      @apply bg-[#745BE7] text-white hover:bg-[#6345D1];
+    }
+    
+    &.btn-outline {
+      @apply bg-white border border-[#745BE7] text-[#745BE7] hover:bg-[#F5F3FF];
+    }
+    
+    @media (max-width: 767px) {
+      @apply w-full;
+    }
+  }
+}
+
 /* Custom Components & Utilities */
 @layer components {
   .modal-overlay {

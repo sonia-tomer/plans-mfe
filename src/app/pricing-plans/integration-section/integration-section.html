@@ -1,85 +1,25 @@
 <div class="w-full max-w-[1164px] mx-auto px-4 mt-6">
-  <div class="w-full min-h-[1220px] bg-white shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-xl py-14">
+  <div class="w-full min-h-[1220px] bg-white shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-xl py-8 md:py-14">
     <!-- Inner Container -->
     <div class="flex flex-col items-center gap-8 max-w-[922px] mx-auto">
       <!-- Header Section -->
-      <div class="flex flex-col items-start gap-2 w-full max-w-[632px]">
-        <h2 class="sf-pro-bold font-bold text-2xl leading-[120%] text-center text-[#0B2110] w-full">
+      <div class="flex flex-col items-start gap-2 w-full max-w-[632px] px-4">
+        <h2 class="sf-pro-bold font-bold text-lg md:text-2xl leading-[120%] text-center text-[#0B2110] w-full">
           Get access to more industry-leading products
         </h2>
-        <p class="sf-pro-regular font-normal text-base leading-6 text-center text-[#6B7280] w-full">
+        <p class="sf-pro-regular font-normal text-sm md:text-base leading-6 text-center text-[#6B7280] w-full">
           All our plans come with comprehensive features to
         </p>
       </div>
 
-      <!-- Row 1 -->
-      <div class="flex flex-row items-center gap-8 w-full">
-        @for (card of getRowCards(0); track card.title) {
-        <div class="box-border flex flex-col items-start p-6 gap-3 w-[286px] bg-white border border-[#EDEFF7] shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-[10px] flex-shrink-0">
+      <!-- Integration Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 w-full px-4">
+        @for (card of integrationCards; track card.title) {
+        <div class="box-border flex flex-col items-start p-6 gap-3 bg-white border border-[#EDEFF7] shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-[10px]">
           <div class="w-[32px] h-[32px] flex-shrink-0 flex items-center justify-center">
             <app-cdn-icon [name]="card.icon" [width]="card?.width || 32" [height]="card?.height || 32"></app-cdn-icon>
           </div>
-          <div class="flex flex-col items-start gap-1 w-[238px]">
-            <h3 class="sf-pro-medium font-semibold text-sm leading-5 text-[#282B4A]">{{ card.title }}</h3>
-            <p class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">{{ card.description }}</p>
-          </div>
-        </div>
-        }
-      </div>
-
-      <!-- Row 2 -->
-      <div class="flex flex-row items-center gap-8 w-full">
-        @for (card of getRowCards(1); track card.title) {
-        <div class="box-border flex flex-col items-start p-6 gap-3 w-[286px] bg-white border border-[#EDEFF7] shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-[10px] flex-shrink-0">
-          <div class="w-[32px] h-[32px] flex-shrink-0 flex items-center justify-center">
-            <app-cdn-icon [name]="card.icon" [width]="32" [height]="32"></app-cdn-icon>
-          </div>
-          <div class="flex flex-col items-start gap-1 w-[238px]">
-            <h3 class="sf-pro-medium font-semibold text-sm leading-5 text-[#282B4A]">{{ card.title }}</h3>
-            <p class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">{{ card.description }}</p>
-          </div>
-        </div>
-        }
-      </div>
-
-      <!-- Row 3 -->
-      <div class="flex flex-row items-center gap-8 w-full">
-        @for (card of getRowCards(2); track card.title) {
-        <div class="box-border flex flex-col items-start p-6 gap-3 w-[286px] bg-white border border-[#EDEFF7] shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-[10px] flex-shrink-0">
-          <div class="w-[32px] h-[32px] flex-shrink-0 flex items-center justify-center">
-            <app-cdn-icon [name]="card.icon" [width]="32" [height]="32"></app-cdn-icon>
-          </div>
-          <div class="flex flex-col items-start gap-1 w-[238px]">
-            <h3 class="sf-pro-medium font-semibold text-sm leading-5 text-[#282B4A]">{{ card.title }}</h3>
-            <p class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">{{ card.description }}</p>
-          </div>
-        </div>
-        }
-      </div>
-
-      <!-- Row 4 -->
-      <div class="flex flex-row items-center gap-8 w-full">
-        @for (card of getRowCards(3); track card.title) {
-        <div class="box-border flex flex-col items-start p-6 gap-3 w-[286px] bg-white border border-[#EDEFF7] shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-[10px] flex-shrink-0">
-          <div class="w-[32px] h-[32px] flex-shrink-0 flex items-center justify-center">
-            <app-cdn-icon [name]="card.icon" [width]="32" [height]="32"></app-cdn-icon>
-          </div>
-          <div class="flex flex-col items-start gap-1 w-[238px]">
-            <h3 class="sf-pro-medium font-semibold text-sm leading-5 text-[#282B4A]">{{ card.title }}</h3>
-            <p class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">{{ card.description }}</p>
-          </div>
-        </div>
-        }
-      </div>
-
-      <!-- Row 5 -->
-      <div class="flex flex-row items-center gap-8 w-full">
-        @for (card of getRowCards(4); track card.title) {
-        <div class="box-border flex flex-col items-start p-6 gap-3 w-[286px] bg-white border border-[#EDEFF7] shadow-[0px_0px_6px_rgba(0,0,10,0.04)] rounded-[10px] flex-shrink-0">
-          <div class="w-[32px] h-[32px] flex-shrink-0 flex items-center justify-center">
-            <app-cdn-icon [name]="card.icon" [width]="32" [height]="32"></app-cdn-icon>
-          </div>
-          <div class="flex flex-col items-start gap-1 w-[238px]">
+          <div class="flex flex-col items-start gap-1 w-full max-w-[238px]">
             <h3 class="sf-pro-medium font-semibold text-sm leading-5 text-[#282B4A]">{{ card.title }}</h3>
             <p class="sf-pro-regular font-normal text-sm leading-5 text-[#617696]">{{ card.description }}</p>
           </div>

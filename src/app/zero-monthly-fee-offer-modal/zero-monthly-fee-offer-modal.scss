@@ -1,25 +1,22 @@
 .modal-container {
-  @apply box-border absolute bg-white rounded-[10px];
-  width: 612px;
-  height: 445px;
-  left: calc(50% - 512px / 2);
-  top: calc(50% - 407px / 2 - 90px);
+  @apply box-border absolute bg-white rounded-[10px] w-full h-[410px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-y-auto;
+  
+  
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
 .dialog-header {
-  @apply box-border absolute h-16 left-0 top-px border-b border-[#E5E7EB];
+  @apply box-border left-0 top-px border-b border-[#E5E7EB] w-full;
 }
 
 .header-content {
-  @apply flex flex-row justify-between items-center absolute w-[464px] h-10;
-  left: 24px;
-  top: calc(50% - 40px / 2);
+  @apply flex flex-row justify-between items-center w-full p-3;
+  
 }
 
 .header-left {
-  @apply flex flex-row items-center gap-2 w-[231px] h-10;
+  @apply flex flex-row items-center gap-2 ;
 }
 
 .icon-container {
@@ -35,30 +32,30 @@
 }
 
 .content-frame {
-  @apply flex flex-col items-start gap-6 absolute;
-  width: 462px;
+  @apply flex flex-col items-start gap-6 p-4;
+  
   height: 294px;
   left: 25px;
   top: 81px;
 }
 
 .offer-details-container {
-  @apply box-border flex flex-col items-start p-4 gap-2 w-[462px] h-[106px];
+  @apply box-border flex flex-col items-start p-4 gap-2;
   background: linear-gradient(270deg, #FFFFFF 3.62%, #EAF6FF 100%);
   border: 1px solid #DEEBFF;
   border-radius: 10px;
 }
 
 .offer-details-label {
-  @apply w-[74px] h-5 font-medium text-[14px] leading-5 tracking-[-0.150391px] text-[#7990A4];
+  @apply font-medium text-[14px] leading-5 tracking-[-0.150391px] text-[#7990A4];
 }
 
 .offer-details-text {
-  @apply w-[430px] h-[46px] font-normal text-[14px] leading-[23px] text-[#373B62] m-0;
+  @apply  font-normal text-[14px] leading-[23px] text-[#373B62] m-0;
 }
 
 .conditions-container {
-  @apply flex flex-col items-start gap-4 w-[462px] h-[164px];
+  @apply flex flex-col items-start gap-2;
 }
 
 .condition-item {
@@ -66,32 +63,27 @@
 }
 
 .condition-item:nth-child(1) {
-  width: 440px;
-  height: 20px;
+ 
   order: 0;
 }
 
 .condition-item:nth-child(2) {
-  width: 240px;
-  height: 20px;
+ 
   order: 1;
 }
 
 .condition-item:nth-child(3) {
-  width: 226px;
-  height: 20px;
+ 
   order: 2;
 }
 
 .condition-item:nth-child(4) {
-  width: 287px;
-  height: 20px;
+ 
   order: 3;
 }
 
 .condition-item:nth-child(5) {
-  width: 293px;
-  height: 20px;
+ 
   order: 4;
 }
 

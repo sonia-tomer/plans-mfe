@@ -1,21 +1,52 @@
 // Component-specific styles if needed
 // Most styling is handled by Tailwind classes
 
+// Pricing Cards Container - Handles responsive scroll
+.pricing-cards-container {
+  @apply mb-10 pt-3;
+  
+  @media (max-width: 1000px) {
+    @apply overflow-x-auto;
+    // scrollbar-width: thin;
+    // -webkit-overflow-scrolling: touch;
+    
+    &::-webkit-scrollbar {
+      // height: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      @apply bg-gray-100 rounded;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      @apply bg-gray-400 rounded;
+    }
+  }
+}
+
+.pricing-cards-wrapper {
+  @apply flex gap-6;
+  
+  @media (min-width: 1001px) {
+    @apply grid grid-cols-4;
+  }
+}
+
 // Pricing Plan Card Styles
 .pricing-plan-card {
-  @apply box-border flex flex-row justify-center items-center mx-auto;
-  @apply w-[255px] min-h-[694px] bg-white border border-[#EDEFF7] rounded-[12px];
+  @apply box-border flex flex-row justify-center items-center;
+  @apply w-full max-w-[255px] min-h-[694px] bg-white border border-[#EDEFF7] rounded-[12px];
   @apply shadow-[0px_2px_12px_rgba(0,0,10,0.02)] relative;
 }
 
 // Current Plan Card Styles
 .pricing-plan-card-current {
-  @apply bg-[#06064D] rounded-[12px] w-[257px] h-[696px] relative;
+  @apply bg-[#06064D] rounded-[12px] w-full max-w-[257px] h-[696px] relative;
 }
 
 .pricing-plan-current-label {
   @apply absolute top-2 left-1/2 -translate-x-1/2;
-  @apply w-[102px] h-3 flex items-center justify-center z-[1];
+  @apply  flex items-center justify-center z-[1];
   @apply font-semibold text-[14px] leading-[17px] text-white;
 }
 
@@ -25,21 +56,29 @@
 
 .pricing-plan-card-inner {
   @apply flex flex-col justify-between items-start gap-[26px];
-  @apply w-[207px] h-full z-0;
+  @apply w-full max-w-[207px] h-full z-0;
+  
+  @media (max-width: 767px) {
+    @apply px-4;
+  }
 }
 
 .pricing-plan-card-inner-current {
   @apply box-border flex flex-col justify-between items-start gap-[26px];
-  @apply absolute left-[2px] top-[28px] w-[251px] h-[664px];
+  @apply absolute left-[2px] top-[28px] w-[calc(100%-4px)] max-w-[251px] h-[664px];
   @apply bg-white border border-[#DDDDDD] rounded-[10px] z-0;
+  
+  @media (max-width: 767px) {
+    @apply w-[calc(100%-4px)] max-w-full;
+  }
 }
 
 .pricing-plan-header {
-  @apply flex flex-col items-start gap-5 mx-auto w-[207px];
+  @apply flex flex-col items-start gap-5 mx-auto w-full max-w-[207px];
 }
 
 .pricing-plan-title-section {
-  @apply flex flex-col items-start gap-6 w-[207px];
+  @apply flex flex-col items-start w-full max-w-[207px];
 }
 
 .pricing-plan-name {
@@ -48,19 +87,19 @@
 }
 
 .pricing-plan-price-section {
-  @apply flex flex-col items-start gap-4 w-[207px];
+  @apply flex flex-col items-start w-full max-w-[207px];
 }
 
 .pricing-plan-price {
-  @apply w-[207px] font-semibold text-[24px] leading-[150%] text-[#745BE7] flex items-center;
+  @apply w-full max-w-[207px] font-semibold text-[24px] leading-[150%] text-[#745BE7] flex items-center;
 }
 
 .pricing-plan-description {
-  @apply w-[207px] text-[12px] leading-[150%] text-[#373B62];
+  @apply w-full max-w-[207px] text-[12px] leading-[150%] text-[#373B62];
 }
 
 .pricing-plan-avg-cost {
-  @apply flex flex-col justify-between items-start gap-1 p-3 w-[207px] min-h-[75px];
+  @apply flex flex-col justify-between items-start gap-1 p-3 w-full max-w-[207px] min-h-[75px] pb-5;
   @apply bg-[#F6F6FF] rounded-[8px];
 }
 
@@ -81,15 +120,15 @@
 }
 
 .pricing-plan-features {
-  @apply flex flex-col items-start gap-3 w-[207px];
+  @apply flex flex-col items-start gap-3 w-full max-w-[207px];
 }
 
 .pricing-plan-features-label {
-  @apply w-[175px] text-[14px] leading-5 text-[#8084AC] flex items-center;
+  @apply w-full max-w-[175px] text-[14px] leading-5 text-[#8084AC] flex items-center;
 }
 
 .pricing-plan-features-list {
-  @apply flex flex-col items-start gap-3 w-[207px] list-none m-0;
+  @apply flex flex-col items-start w-full max-w-[207px] list-none m-0;
 }
 
 .pricing-plan-feature-item {
@@ -101,12 +140,12 @@
 }
 
 .pricing-plan-actions {
-  @apply flex flex-col items-center gap-4 mx-auto w-[207px] min-h-[64px];
+  @apply flex flex-col items-center gap-4 mx-auto w-full max-w-[207px] min-h-[64px];
 }
 
 .pricing-plan-activate-btn {
   @apply box-border flex flex-row justify-center items-center gap-[6.36px];
-  @apply w-[207px] h-[34px] px-[13.5128px] py-[6.35897px];
+  @apply w-full max-w-[207px] h-[34px] px-[13.5128px] py-[6.35897px];
   @apply bg-[#745BE7] border border-[#6964E2] rounded-[6px] cursor-pointer;
   @apply font-semibold text-[14px] leading-[17px] text-white text-center capitalize;
   @apply transition-opacity duration-200;
@@ -128,7 +167,7 @@
 }
 
 .pricing-plan-renewal-section {
-  @apply flex flex-col items-center gap-3 w-[207px];
+  @apply flex flex-col items-center gap-3 w-full max-w-[207px];
 }
 
 .pricing-plan-renewal-date {
@@ -137,7 +176,7 @@
 }
 
 .pricing-plan-rate-card-link {
-  @apply flex flex-col items-center justify-center gap-[2px] w-[121px] h-[14px];
+  @apply flex flex-col items-center justify-center gap-[2px]  h-[14px];
   @apply no-underline cursor-pointer transition-opacity duration-200;
 
   &:hover {
@@ -145,10 +184,10 @@
   }
 
   span {
-    @apply w-[121px] h-3 text-[12px] leading-5 text-center text-[#745BE7] capitalize flex items-center justify-center;
+    @apply  h-3 text-[12px] leading-5 text-center text-[#745BE7] capitalize flex items-center justify-center;
   }
 }
 
 .pricing-plan-rate-card-line {
-  @apply w-[121px] border border-[#745BE7];
+  @apply w-[130px] border border-[#745BE7];
 }

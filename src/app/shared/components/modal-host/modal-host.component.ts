@@ -18,9 +18,9 @@ import { Subject, takeUntil } from 'rxjs';
           [style.max-width]="modalWidth"
           (click)="$event.stopPropagation()"
         >
-          <div class="p-6">
+          
             <ng-container #modalContent></ng-container>
-          </div>
+          
         </div>
       </div>
     }

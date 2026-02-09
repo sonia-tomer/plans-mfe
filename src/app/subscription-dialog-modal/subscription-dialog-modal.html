@@ -69,45 +69,71 @@
   <div *ngIf="qrCode" class="subscription-modal-body">
       <div class="qr-section">
         <div class="qr-left">
-          <h3 class="qr-title">
-            Scan QR with any UPI app
-          </h3>
-          <p class="qr-subtitle">
-            Approve monthly mandate of
-            <span class="font-semibold">
-              ₹{{ mandateAmount || plan?.price || 0 }}
-              <span *ngIf="currency"> {{ currency }}</span>
-            </span>
-          </p>
+          <div class="qr-header">
+            <h3 class="qr-title">
+              Scan QR with any UPI app
+            </h3>
+            <p class="qr-subtitle">
+              Approve monthly mandate of
+              <span class="qr-amount">
+                ₹{{ mandateAmount || plan?.price || 0 }}
+                <span *ngIf="currency"> {{ currency }}</span>
+              </span>
+            </p>
+          </div>
 
-          <div class="qr-meta">
-            <div><span class="meta-label">Merchant</span> {{ merchantName }}</div>
-            <div><span class="meta-label">VPA</span> {{ merchantVpa }}</div>
-            <div *ngIf="mandateAmount">
-              <span class="meta-label">Amount</span>
-              ₹{{ mandateAmount }} <span *ngIf="currency">({{ currency }})</span>
-            </div>
-            <div><span class="meta-label">From</span> {{ fromDate }}</div>
-            <div><span class="meta-label">To</span> {{ toDate }}</div>
-            <div><span class="meta-label">Frequency</span> {{ frequency }}</div>
-            <div *ngIf="shortLink">
-              <span class="meta-label">UPI Link</span>
-              {{ shortLink }}
+          <div class="qr-meta-card">
+            <div class="qr-meta-title">Payment Details</div>
+            <div class="qr-meta-grid">
+              <div class="qr-meta-item">
+                <span class="meta-label">Merchant</span>
+                <span class="meta-value">{{ merchantName }}</span>
+              </div>
+              <div class="qr-meta-item">
+                <span class="meta-label">VPA</span>
+                <span class="meta-value">{{ merchantVpa }}</span>
+              </div>
+              <div *ngIf="mandateAmount" class="qr-meta-item">
+                <span class="meta-label">Amount</span>
+                <span class="meta-value">₹{{ mandateAmount }} <span *ngIf="currency">({{ currency }})</span></span>
+              </div>
+              <div class="qr-meta-item">
+                <span class="meta-label">From</span>
+                <span class="meta-value">{{ fromDate }}</span>
+              </div>
+              <div class="qr-meta-item">
+                <span class="meta-label">To</span>
+                <span class="meta-value">{{ toDate }}</span>
+              </div>
+              <div class="qr-meta-item">
+                <span class="meta-label">Frequency</span>
+                <span class="meta-value">{{ frequency }}</span>
+              </div>
+              <div *ngIf="shortLink" class="qr-meta-item qr-meta-item-full">
+                <span class="meta-label">UPI Link</span>
+                <span class="meta-value meta-value-link">{{ shortLink }}</span>
+              </div>
             </div>
           </div>
 
-          <div class="timer">
-            <span class="time">{{ formatTime(timeRemaining) }}</span>
-            <span class="timer-label">Time remaining</span>
+          <div class="timer-card">
+            <div class="timer-icon">⏱️</div>
+            <div class="timer-content">
+              <span class="time">{{ formatTime(timeRemaining) }}</span>
+              <span class="timer-label">Time remaining</span>
+            </div>
           </div>
         </div>
 
         <div class="qr-right">
-          <img
-            [src]="'data:image/png;base64,' + qrCode"
-            alt="UPI QR Code"
-            class="qr-img"
-          />
+          <div class="qr-container">
+            <img
+              [src]="'data:image/png;base64,' + qrCode"
+              alt="UPI QR Code"
+              class="qr-img"
+            />
+            <div class="qr-instruction">Scan to pay with UPI</div>
+          </div>
         </div>
       </div>
     </div>
