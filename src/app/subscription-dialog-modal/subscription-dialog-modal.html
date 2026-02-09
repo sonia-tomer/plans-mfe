@@ -141,22 +141,40 @@
         </div>
 
         <div class="qr-right">
-          <div class="qr-container">
-            <img
-              [src]="'data:image/png;base64,' + qrCode"
-              alt="UPI QR Code"
-              class="qr-img"
-            />
-            <div class="qr-instruction">Scan to pay with UPI</div>
-            <div class="flex gap-1 flex-col">
-            <span class="timer-label font-bold">Time remaining</span>
-            <div class="flex gap-1 border border-[#745BD1] rounded-2xl items-center justify-center py-1 px-2 w-max">
-            <div class="timer-icon">⏱️</div>
-            <div class="timer-content">
-              <span class="time">{{ formatTime(timeRemaining) }}</span>
+          <div class="qr-container" [class.qr-expired]="paymentStatus === 'timeout'">
+            <div class="qr-code-wrapper">
+              <img
+                [src]="'data:image/png;base64,' + qrCode"
+                alt="UPI QR Code"
+                class="qr-img"
+                [class.qr-faded]="paymentStatus === 'timeout'"
+              />
+              @if(paymentStatus === 'timeout') {
+              <div class="qr-overlay color-[#6b6a6a]">
+                <div class="font-bold text-lg cursor-pointer bg-gray-100 px-4 py-2 rounded-lg shadow-md flex gap-2 items-center text-[#6b6a6a]" (click)="onRetry()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b6a6a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  Retry
+                </div>
+              </div>
+            }
             </div>
-          </div>
-          </div>
+            @if(paymentStatus !== 'timeout') {
+            <div class="qr-instruction">Scan to pay with UPI</div>
+            
+            <div class="flex gap-1 flex-col" [class.border-warning]="timeRemaining <= 30">
+              <span class="timer-label font-bold">Time remaining</span>
+              <div class="flex gap-1 border border-[#745BD1] rounded-2xl items-center justify-center py-1 px-2 w-max">
+                <div class="timer-icon">⏱️</div>
+                <div class="timer-content">
+                  <span class="time" [class.time-warning]="timeRemaining <= 30">{{ formatTime(timeRemaining) }}</span>
+                </div>
+              </div>
+            </div>
+          }
           </div>
         </div>
       </div>

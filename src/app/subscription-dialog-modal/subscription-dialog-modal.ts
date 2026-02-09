@@ -105,6 +105,18 @@ export class SubscriptionDialogModal implements OnInit, OnDestroy {
     this.smoothClose('cancel');
   }
 
+  onRetry(): void {
+    // Reset state and reinitiate mandate
+    this.paymentStatus = 'idle';
+    this.qrCode = null;
+    this.paymentId = null;
+    this.timeRemaining = 120;
+    this.cdr.detectChanges();
+    
+    // Reinitiate the mandate
+    this.initiateMandate();
+  }
+
   /**
    * Call backend to initiate mandate and fetch QR (similar to SR_Web SubscriptionDialogComponent).
    */

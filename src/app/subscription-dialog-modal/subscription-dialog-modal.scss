@@ -109,7 +109,7 @@
 }
 
 .qr-right {
-  @apply flex-shrink-0 flex items-end justify-center;
+  @apply flex-shrink-0 flex items-center justify-center;
 }
 
 .qr-header {
@@ -167,9 +167,31 @@
   @apply duration-300;
 }
 
+.qr-container.qr-expired {
+  @apply border-slate-300;
+}
+
+.qr-code-wrapper {
+  @apply relative;
+}
+
 .qr-img {
   @apply h-48 w-48 md:h-56 md:w-56 rounded-xl;
   @apply ring-2 ring-slate-100 ring-offset-4;
+  @apply transition-opacity duration-500;
+}
+
+.qr-img.qr-faded {
+  @apply opacity-30;
+}
+
+.qr-overlay {
+  @apply absolute inset-0 flex items-center justify-center;
+  @apply bg-slate-900/10 rounded-xl;
+}
+
+.qr-expired-text {
+  @apply text-lg md:text-xl font-bold text-red-600 bg-white px-4 py-2 rounded-lg shadow-md;
 }
 
 .qr-instruction {
@@ -191,10 +213,29 @@
 
 .time {
   @apply text-2xl md:text-3xl font-bold text-[#745BD1];
+  @apply transition-colors duration-300;
 }
 
+.time.time-warning {
+  @apply text-red-600;
+}
+.border-warning {
+  @apply border-red-600;
+}
 .timer-label {
   @apply  text-[#745BD1]/90 ;
+}
+
+.retry-section {
+  @apply mt-4 w-full;
+}
+
+.btn-retry {
+  @apply w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl;
+  @apply bg-gradient-to-r from-[#745BD1] to-[#5f47c0] text-white;
+  @apply hover:from-[#5f47c0] hover:to-[#4d3a99];
+  @apply shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02];
+  @apply font-bold text-sm md:text-base;
 }
 
 .thankyou-text {
