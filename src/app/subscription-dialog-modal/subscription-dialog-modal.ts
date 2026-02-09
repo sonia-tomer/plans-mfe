@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { interval, Subscription } from 'rxjs';
@@ -17,14 +17,16 @@ type PaymentStatus = 'idle' | 'pending' | 'success' | 'failed' | 'timeout';
   templateUrl: './subscription-dialog-modal.html',
   styleUrl: './subscription-dialog-modal.scss',
 })
-export class SubscriptionDialogModal implements OnDestroy {
+export class SubscriptionDialogModal implements OnInit, OnDestroy {
   private modalService = inject(ModalService);
   private http = inject(HttpClient);
   private authService = inject(AuthService);
   private cdr = inject(ChangeDetectorRef);
 
   // These will be assigned by ModalHostComponent via modal data
-  plan?: PricingPlan;
+  plan?: PricingPlan;              // target plan user is upgrading/downgrading to
+  currentPlan?: PricingPlan | null; // currently active plan
+  autoStartMandate = false;
 
   // Result consumed by PricingPlans
   result: 'upgrade' | 'cancel' | undefined;
@@ -49,10 +51,33 @@ export class SubscriptionDialogModal implements OnDestroy {
   currency?: string;
   shortLink?: string;
 
-  // Thank-you & redirect after success
-  showThankYou = false;
-  countdownSeconds = 5;
+  // Success confetti + smooth close after success
+  showConfetti = false;
   private redirectTimerId: any;
+
+  // Smooth close state
+  isClosing = false;
+
+  // Control whether to show intro screen
+  showIntro = true;
+  // Loader state while initiate-mandate is in progress
+  isInitiatingMandate = false;
+
+  ngOnInit(): void {
+    // Get data from injected properties (plan, currentPlan + optional autoStartMandate flag)
+    if ((this as any).plan) {
+      this.plan = (this as any).plan;
+    }
+    if ((this as any).currentPlan !== undefined) {
+      this.currentPlan = (this as any).currentPlan;
+    }
+    if ((this as any).autoStartMandate) {
+      this.autoStartMandate = !!(this as any).autoStartMandate;
+      this.showIntro = false;
+      // Directly initiate mandate so user lands on QR flow after downgrade confirmation
+      this.initiateMandate();
+    }
+  }
 
   ngOnDestroy(): void {
     this.stopPaymentPolling();
@@ -77,7 +102,7 @@ export class SubscriptionDialogModal implements OnDestroy {
 
   onContinueWithCurrent(): void {
     this.result = 'cancel';
-    this.modalService.close(this.result);
+    this.smoothClose('cancel');
   }
 
   /**
@@ -98,11 +123,16 @@ export class SubscriptionDialogModal implements OnDestroy {
 
     const headers = this.authService.getAuthHeaders();
 
+    this.isInitiatingMandate = true;
+    this.cdr.detectChanges();
+
     this.http.post<any>(`${API_BASE_URL}setu/initiate-mandate`, payload, { headers }).subscribe({
       next: (response) => {
         const data = response?.data;
         if (!data) {
           console.error('Failed to initiate mandate, missing data:', response);
+          this.isInitiatingMandate = false;
+          this.cdr.detectChanges();
           return;
         }
 
@@ -128,11 +158,34 @@ export class SubscriptionDialogModal implements OnDestroy {
         this.startPaymentTimer();
         this.startPaymentPolling();
 
+        this.isInitiatingMandate = false;
         // Ensure view updates immediately even when using fetch/zoneless HTTP
         this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error initiating mandate:', error);
+
+        const message =
+          error?.error?.message ||
+          error?.error?.data?.message ||
+          error?.message ||
+          'Failed to initiate mandate';
+
+        this.isInitiatingMandate = false;
+
+        // If payment is already completed for this mandate, inform user and close modal.
+        if (typeof message === 'string' && message.toLowerCase().includes('payment already done')) {
+          if (typeof window !== 'undefined') {
+            window.alert(message);
+          }
+          this.smoothClose('cancel');
+          return;
+        }
+
+        // For other errors, optionally surface a generic message.
+        if (typeof window !== 'undefined') {
+          window.alert(message);
+        }
       },
     });
   }
@@ -189,8 +242,10 @@ export class SubscriptionDialogModal implements OnDestroy {
           if (res?.payment_status) {
             this.paymentStatus = 'success';
             this.stopPaymentPolling();
-            this.showThankYou = true;
-            this.startRedirectCountdown();
+            // Show success confetti, then smoothly close modal and trigger success flow
+            this.showConfetti = true;
+            this.startConfettiAndClose();
+            this.cdr.detectChanges();
           }
         },
         error: (err) => {
@@ -199,23 +254,32 @@ export class SubscriptionDialogModal implements OnDestroy {
       });
   }
 
-  private startRedirectCountdown(): void {
+  private startConfettiAndClose(): void {
     if (this.redirectTimerId) {
-      clearInterval(this.redirectTimerId);
+      clearTimeout(this.redirectTimerId);
     }
 
-    this.countdownSeconds = 5;
+    // Wait for 2 seconds to show confetti, then close modal and notify parent
+    this.redirectTimerId = setTimeout(() => {
+      this.redirectTimerId = undefined;
+      this.showConfetti = false;
+      this.smoothClose('upgrade');
+    }, 2000);
+  }
 
-    this.redirectTimerId = setInterval(() => {
-      this.countdownSeconds--;
-      if (this.countdownSeconds <= 0) {
-        clearInterval(this.redirectTimerId);
-        this.redirectTimerId = undefined;
-        // Inform parent (PricingPlans) that payment succeeded → proceed with activation.
-        this.result = 'upgrade';
-        this.modalService.close(this.result);
+  /**
+   * Apply a short closing animation before actually closing the modal.
+   */
+  private smoothClose(result?: 'upgrade' | 'cancel'): void {
+    this.isClosing = true;
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      if (result) {
+        this.result = result;
       }
-    }, 1000);
+      this.modalService.close(this.result);
+    }, 200);
   }
 
   formatTime(seconds: number): string {

@@ -1,10 +1,18 @@
-<div class="subscription-modal-container">
+<div class="subscription-modal-container" [class.closing]="isClosing">
+  <!-- Confetti overlay on payment success -->
+  <div *ngIf="showConfetti" class="confetti-overlay">
+    <img
+      src="https://i.pinimg.com/originals/07/03/48/0703483f8e3100d87497817030fb903f.gif"
+      alt="Payment Success"
+      class="confetti-image"
+    />
+  </div>
   <button class="subscription-modal-close" (click)="onContinueWithCurrent()">
     ×
   </button>
 
-  <!-- Initial view: plan cards + CTA -->
-  <div *ngIf="!qrCode">
+  <!-- Initial view: plan cards + CTA (hidden for downgrade flow with autoStartMandate) -->
+  <div *ngIf="!qrCode && showIntro">
     <div class="subscription-modal-header">
       <h2 class="subscription-modal-title">
         Save upto <span class="highlight">10% on each shipment</span>
@@ -20,8 +28,13 @@
       <!-- Plans summary (top section, same as SR_Web style) -->
       <div class="subscription-plan-card">
         <div class="subscription-plan-current">
-          <div class="plan-label">Current Plan</div>
-          <div class="plan-price">₹0 / month</div>
+          <div class="plan-label">
+            Current Plan
+            <span *ngIf="currentPlan?.name"> – {{ currentPlan?.name }}</span>
+          </div>
+          <div class="plan-price">
+            {{ currentPlan?.priceDisplay || '₹0 / month' }}
+          </div>
           <p class="plan-desc">
             Pay higher shipping rates on each shipment.
           </p>
@@ -62,6 +75,14 @@
           Continue with current plan
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Loader view while mandate is being initiated (mainly for downgrade auto-start flow) -->
+  <div *ngIf="!qrCode && !showIntro && isInitiatingMandate" class="subscription-modal-body">
+    <div class="loader-container">
+      <div class="loader-spinner"></div>
+      <p class="loader-text">Generating secure UPI mandate…</p>
     </div>
   </div>
 

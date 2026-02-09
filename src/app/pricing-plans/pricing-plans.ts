@@ -1,5 +1,6 @@
-import { Component, OnInit, inject, signal, computed, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal, computed, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 import { PlansService } from '../services/plans.service';
 import { PricingPlan, ShipmentDetails, PlanBenefits, PlanActivationResponse } from '../models/plan.model';
 import { EditSampleShipmentModal } from '../edit-sample-shipment-modal/edit-sample-shipment-modal';
@@ -18,11 +19,14 @@ import { IntegrationSection } from './integration-section/integration-section';
   styleUrl: './pricing-plans.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PricingPlans implements OnInit {
+export class PricingPlans implements OnInit, OnDestroy {
   private plansService = inject(PlansService);
   private modalService = inject(ModalService);
   private cdr = inject(ChangeDetectorRef);
   private sanitizer = inject(DomSanitizer);
+
+  // Track modal subscriptions to prevent leaks
+  private editShipmentModalSubscription?: Subscription;
 
   // Using signals for reactive state - Angular 21 feature
   plans = signal<PricingPlan[]>([]);
@@ -106,7 +110,13 @@ export class PricingPlans implements OnInit {
   }
 
   openEditShipmentModal(): void {
-    this.modalService.open(EditSampleShipmentModal, {
+    // Unsubscribe from previous subscription if it exists
+    if (this.editShipmentModalSubscription) {
+      this.editShipmentModalSubscription.unsubscribe();
+    }
+
+    // Create new subscription and track it
+    this.editShipmentModalSubscription = this.modalService.open(EditSampleShipmentModal, {
       shipmentDetails: { ...this.shipmentDetails() }
     }, '500px').subscribe((result: ShipmentDetails | undefined) => {
       if (result) {
@@ -114,6 +124,8 @@ export class PricingPlans implements OnInit {
         this.shipmentDetails.set(result);
         this.recalculateCosts();
       }
+      // Clean up subscription after it completes
+      this.editShipmentModalSubscription = undefined;
     });
   }
 
@@ -125,10 +137,12 @@ export class PricingPlans implements OnInit {
 
   activatePlan(plan: PricingPlan): void {
     const current = this.currentPlan();
-    if (true) {
+    if (current && this.isDowngrade(current, plan)) {
+      // Downgrade flow: show confirmation, then for paid target plans go straight to QR (skip intro).
       this.openDowngradeConfirmation(plan);
     } else {
-      this.confirmActivation(plan);
+      // Normal/upgrade flow
+      this.startPlanActivation(plan, false);
     }
   }
 
@@ -153,29 +167,63 @@ export class PricingPlans implements OnInit {
       next: (benefits: PlanBenefits[]) => {
         this.plansService.getDowngradeEffectiveDate().subscribe({
           next: (effectiveDate: string) => {
-            this.modalService.open(DowngradeConfirmationModal, {
-              targetPlan: plan,
-              currentPlan: current,
-              benefits: benefits,
-              effectiveDate: effectiveDate
-            }, '600px').subscribe((confirmed: boolean) => {
-              if (confirmed) {
-                this.confirmActivation(plan);
-              }
-            });
+            this.modalService
+              .open(
+                DowngradeConfirmationModal,
+                {
+                  targetPlan: plan,
+                  currentPlan: current,
+                  benefits: benefits,
+                  effectiveDate: effectiveDate,
+                },
+                '600px'
+              )
+              .subscribe((confirmed: boolean) => {
+                if (confirmed) {
+                  // Coming from downgrade confirmation
+                  this.startPlanActivation(plan, true);
+                }
+              });
           }
         });
       }
     });
   }
 
-  confirmActivation(plan: PricingPlan): void {
+  /**
+   * Decide how to activate a plan:
+   * - For free plans (price === 0, e.g. Lite), call upgrade API directly (no mandate / QR popup).
+   * - For paid plans, open the subscription dialog to handle mandate + payment.
+   *   - If coming from downgrade flow, skip intro and jump to QR.
+   */
+  private startPlanActivation(plan: PricingPlan, fromDowngrade: boolean): void {
+    if (plan.price === 0) {
+      // Lite / free plans: no need for mandate flow, directly call upgrade API.
+      this.executePlanActivation(plan);
+    } else {
+      // Paid plans: go through subscription dialog (UPI mandate + QR).
+      this.confirmActivation(plan, fromDowngrade);
+    }
+  }
+
+  confirmActivation(plan: PricingPlan, fromDowngrade: boolean = false): void {
     // Open lightweight subscription dialog (local copy of SR_Web subscription popup).
     // Loaded lazily so it doesn't bloat the initial bundle.
     (async () => {
-      const { SubscriptionDialogModal } = await import('../subscription-dialog-modal/subscription-dialog-modal');
+      const { SubscriptionDialogModal } = await import(
+        '../subscription-dialog-modal/subscription-dialog-modal'
+      );
+      const current = this.currentPlan();
       this.modalService
-        .open(SubscriptionDialogModal, { plan }, '700px')
+        .open(
+          SubscriptionDialogModal,
+          {
+            plan,
+            currentPlan: current,
+            autoStartMandate: fromDowngrade, // when true, modal should skip intro and show QR directly
+          },
+          '700px'
+        )
         .subscribe((result: 'upgrade' | 'cancel' | undefined) => {
           if (result === 'upgrade') {
             this.executePlanActivation(plan);
@@ -252,5 +300,12 @@ export class PricingPlans implements OnInit {
    */
   getSafeHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html || '');
+  }
+
+  ngOnDestroy(): void {
+    // Clean up subscriptions on component destruction
+    if (this.editShipmentModalSubscription) {
+      this.editShipmentModalSubscription.unsubscribe();
+    }
   }
 }
