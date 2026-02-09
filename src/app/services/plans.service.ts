@@ -50,12 +50,7 @@ export class PlansService {
       .set('delivery_postcode', details.deliveryPincode)
       .set('weight', String(weightKg))
       .set('cod', isCod)
-      .set('declared_value', String(details.orderValue ?? ''))
-      // Use sensible defaults for dimensions if not provided; API expects them but
-      // they don't affect the relative comparison much for this sample calculator.
-      .set('breadth', '10')
-      .set('length', '10')
-      .set('height', '10');
+      .set('declared_value', String(details.orderValue ?? ''));
 
     // Open API: no auth token required
     const headers = {
@@ -134,19 +129,33 @@ export class PlansService {
       return [];
     }
 
-    // recommended_plan_id is provided inside mandate_properties. If it's null/undefined, don't show the flag.
-    const recommendedPlanId = this.getRecommendedPlanId(plansArray);
+    // Get recommended_plan_id from the SELECTED/ACTIVATED plan only.
+    // If the selected plan has recommended_plan_id: null, no plan should show "Recommended" badge.
+    const recommendedPlanId = this.getRecommendedPlanIdFromSelectedPlan(plansArray);
 
     return plansArray.map((plan: PlanApiData) =>
       this.mapPlanDataToPricingPlan(plan, recommendedPlanId)
     );
   }
 
-  private getRecommendedPlanId(plans: PlanApiData[]): string | null {
-    for (const p of plans) {
-      const id = p.restrictions?.mandate_properties?.recommended_plan_id;
-      if (typeof id === 'number') return String(id);
+  /**
+   * Get recommended_plan_id from the currently selected/activated plan.
+   * If selected plan has recommended_plan_id: null, return null (no plan should be marked as recommended).
+   */
+  private getRecommendedPlanIdFromSelectedPlan(plans: PlanApiData[]): string | null {
+    // Find the selected/activated plan
+    const selectedPlan = plans.find(p => p.selected === true);
+    if (!selectedPlan) {
+      return null;
     }
+
+    // Get recommended_plan_id from the selected plan
+    const recommendedId = selectedPlan.restrictions?.mandate_properties?.recommended_plan_id;
+    if (typeof recommendedId === 'number') {
+      return String(recommendedId);
+    }
+
+    // If selected plan has recommended_plan_id: null, return null (no recommendations)
     return null;
   }
 
@@ -195,15 +204,15 @@ export class PlansService {
     const milestoneMatrix = this.mapMilestoneMatrix(milestoneMatrixRaw);
     const shippingMilestone = milestoneMatrix?.targetedShipmentCountPerMonth;
 
+    // Current plan - used in: @if (plan.isCurrentPlan) and [class.pricing-plan-card-current]
+    const isCurrentPlan = plan.selected || false;
+
     // Determine if recommended - used in: @if (plan.isRecommended)
-    // Use API key recommended_plan_id: if null/undefined, no flag should be shown.
-    const isRecommended = !!(recommendedPlanId && planId === recommendedPlanId);
+    // Only show "Recommended" for non-current plans, and only when API provides recommended_plan_id.
+    const isRecommended = !!(recommendedPlanId && planId === recommendedPlanId && !isCurrentPlan);
 
     // Average shipment cost - used in: {{ plan.avgShipmentCost }} (calculated separately)
     const avgShipmentCost = 0;
-
-    // Current plan - used in: @if (plan.isCurrentPlan) and [class.pricing-plan-card-current]
-    const isCurrentPlan = plan.selected || false;
 
     return {
       id: planId,
@@ -286,15 +295,52 @@ export class PlansService {
   }
 
   activatePlan(request: PlanActivationRequest): Observable<PlanActivationResponse> {
-    // Mock activation - replace with actual API call
-    const response: PlanActivationResponse = {
-      success: true,
-      message: 'Plan activated successfully',
-      billingCycleDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      planName: request.planId
+    const url = `${this.PLANS_API_BASE_URL}/upgrade`;
+
+    const payload = {
+      plan_id: Number(request.planId),
+      planFeedback: request.planFeedback ?? '',
+      is_web: 1,
     };
-    
-    return of(response).pipe(delay(800));
+
+    const headers = this.authService.getAuthHeaders().set('accept', 'application/json');
+
+    return this.http.post<any>(url, payload, { headers }).pipe(
+      map((res) => {
+        // Some environments (like QA) may return 204 No Content → res will be null/undefined.
+        // In that case, treat it as success as long as the HTTP call itself succeeded.
+        const success =
+          !res || res?.status === true || res?.status === 'success' || res?.success === true;
+
+        const data = res?.data || {};
+
+        const billingCycleDate =
+          data.billingCycle ||
+          data.billing_cycle ||
+          data.billing_cycle_date ||
+          data.next_billing_cycle_date ||
+          '';
+
+        const response: PlanActivationResponse = {
+          success,
+          message: res?.message || 'Plan updated successfully',
+          billingCycleDate,
+          planName: request.planId,
+        };
+
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Error activating/upgrading plan:', error);
+        const response: PlanActivationResponse = {
+          success: false,
+          message: error?.error?.message || error?.message || 'Failed to update plan',
+          billingCycleDate: '',
+          planName: request.planId,
+        };
+        return of(response);
+      })
+    );
   }
 
   getPlanBenefits(planId: string): Observable<PlanBenefits[]> {

@@ -31,9 +31,9 @@ export class ModalService {
   }
 
   close(result?: any): void {
-    if (result !== undefined) {
-      this.resultSubject.next(result);
-    }
+    // Always emit a result (even if undefined) so the observable completes
+    // This prevents subscription leaks when modal is closed without a result
+    this.resultSubject.next(result);
     this.modalSubject.next(null);
   }
 }

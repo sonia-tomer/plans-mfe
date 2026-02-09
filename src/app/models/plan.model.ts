@@ -44,6 +44,7 @@ export interface ShipmentDetails {
 export interface PlanActivationRequest {
   planId: string;
   shipmentDetails?: ShipmentDetails;
+  planFeedback?: string;
 }
 
 export interface PlanActivationResponse {
